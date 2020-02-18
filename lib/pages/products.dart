@@ -155,7 +155,8 @@ class _ProductsState extends State<Products> {
                 ),
               ),
               onTap: () {
-                showAlertDialog(context, position);
+                getPaymentUrl(position);
+//                showAlertDialog(context, position);
               },
             );
           },

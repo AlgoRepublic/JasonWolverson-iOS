@@ -6,6 +6,9 @@ class Events{
   final String description;
   final String scheduled_date;
   final bool upcoming;
+  final String price;
+  final String status;
+
 
 
   Events({
@@ -13,7 +16,9 @@ class Events{
     this.title,
     this.description,
     this.scheduled_date,
-    this.upcoming
+    this.upcoming,
+    this.price,
+    this.status
   });
 
 

@@ -62,7 +62,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     print('Page finished loading: $url');
                     currentUrl = url;
                     if (url ==
-                        "https://jasonwolverson.algorepublic.com/d/users/sign_in") {
+                        "https://jasonwolverson.algorepublic.com/success") {
                       if (widget.eventId != null) {
                         setState(() {
                           isLoading = true;
@@ -76,6 +76,10 @@ class _PaymentPageState extends State<PaymentPage> {
                         });
                         buyProduct();
                       }
+                    }
+                    else if(url=="https://jasonwolverson.algorepublic.com/cancel"){
+                      showToast("Please try again",gravity: Toast.BOTTOM,duration: 4);
+                      Navigator.pop(context);
                     }
 
                     setState(() {

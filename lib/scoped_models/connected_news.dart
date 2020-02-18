@@ -1025,6 +1025,8 @@ mixin EventModel on ConnectedNewsModel {
           description: newsData['description'],
           scheduled_date: newsData['scheduled_date'],
           upcoming: newsData['upcoming'],
+          price: newsData['price'].toString(),
+          status: newsData['status'].toString()
         );
         print(events.description);
         fetchEventList.add(events);
