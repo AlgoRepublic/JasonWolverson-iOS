@@ -353,7 +353,7 @@ class _ProductsState extends State<Products> {
     print(token);
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&event_id=nill&product_id=${_productList.elementAt(position).id}";
+        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&product_id=${_productList.elementAt(position).id}";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,

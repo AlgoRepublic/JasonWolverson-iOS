@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Events{
   final String id;
+  final eventId;
   final String title;
   final String description;
   final String scheduled_date;
@@ -13,6 +14,7 @@ class Events{
 
   Events({
     this.id,
+    this.eventId,
     this.title,
     this.description,
     this.scheduled_date,

@@ -167,10 +167,11 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     String token = sharedPreferences.getString("token");
     String email = sharedPreferences.getString("userEmail");
     String name = "farhat";
-    print(token);
+    print(widget.model.allEvents.elementAt(position).eventId);
+
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${widget.model.allEvents.elementAt(position).price}&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).id}&product_id=nill";
+        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${widget.model.allEvents.elementAt(position).price}&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).eventId}";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,

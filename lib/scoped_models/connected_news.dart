@@ -1021,6 +1021,7 @@ mixin EventModel on ConnectedNewsModel {
         print('newsssssss');
         final Events events = Events(
           id: newsId,
+          eventId: newsData['id'],
           title: newsData['title'],
           description: newsData['description'],
           scheduled_date: newsData['scheduled_date'],
