@@ -374,6 +374,7 @@ mixin DailyPlansModel on ConnectedNewsModel {
   }
 
   Future<Null> fetchDailyPlans() async {
+    print('dailyplans controller');
     _isLoading = true;
     notifyListeners();
 
@@ -401,11 +402,12 @@ mixin DailyPlansModel on ConnectedNewsModel {
       'http://68.183.187.228/api/daily_plans',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
-//      print(response.body);
+      print('response');
 
       final List<DailyPlans> fetchDailyPlanList = [];
 
       final Map<String, dynamic> dailyplansListData = jsonDecode(response.body);
+      print(dailyplansListData);
 
       if (dailyplansListData == null) {
         _isLoading = false;
@@ -422,7 +424,7 @@ mixin DailyPlansModel on ConnectedNewsModel {
 
 //          description: newsData['description'],
         );
-//        print(dailyPlans.time);
+        print(dailyPlans);
         fetchDailyPlanList.add(dailyPlans);
       });
       _dailyplans = fetchDailyPlanList;

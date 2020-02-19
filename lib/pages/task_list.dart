@@ -34,9 +34,14 @@ class _TaskListState extends State<TaskList>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 //  final checkStatus = 'pending';
+
   @override
   void initState() {
+
     super.initState();
+    widget.model.fetchDailyPlans();
+    print('dailyplans');
+    widget.model.fetchUserTasks();
 
     weeklyProgressModel = new WeeklyProgressModel(
         monday: 0,
@@ -47,8 +52,6 @@ class _TaskListState extends State<TaskList>
         saturday: 0,
         weekly_percentage: 0,
         last_week_percentage: 0);
-    widget.model.fetchDailyPlans();
-    widget.model.fetchUserTasks();
     getWeeklyrogress();
     _controller = new TabController(length: 3, vsync: this);
   }
@@ -810,6 +813,7 @@ class _TaskListState extends State<TaskList>
       print("days");
       print(mond);
       print(tuesd);
+      if (!mounted) return;
       setState(() {
         weeklyProgressModel = new WeeklyProgressModel(
             monday: mond,
