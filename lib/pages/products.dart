@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:braintree_payment/braintree_payment.dart';
+//import 'package:braintree_payment/braintree_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:jasonw/models/productsModel.dart';
 import 'package:jasonw/pages/paymentPage.dart';
@@ -45,14 +45,14 @@ class _ProductsState extends State<Products> {
       "GJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=";
 
   payNow() async {
-    BraintreePayment braintreePayment = new BraintreePayment();
-    var data = await braintreePayment.showDropIn(
-        nonce: clientNonce,
-        inSandbox: true,
-        amount: "2.0",
-        enableGooglePay: true);
-    print("Response of the payment $data");
-    showThankYouDialog(context);
+//    BraintreePayment braintreePayment = new BraintreePayment();
+//    var data = await braintreePayment.showDropIn(
+//        nonce: clientNonce,
+//        inSandbox: true,
+//        amount: "2.0",
+//        enableGooglePay: true);
+//    print("Response of the payment $data");
+//    showThankYouDialog(context);
   }
 
   @override
@@ -132,7 +132,7 @@ class _ProductsState extends State<Products> {
                         children: <Widget>[
                           Container(
                             child: Text(
-                                "${_productList.elementAt(position).name.toUpperCase()}         \$${_productList.elementAt(position).price}",
+                                "${_productList.elementAt(position).name.toUpperCase()}         \ZAR ${_productList.elementAt(position).price}",
                                 style: TextStyle(
                                     fontFamily: 'opensans',
                                     fontWeight: FontWeight.bold)),
@@ -211,7 +211,7 @@ class _ProductsState extends State<Products> {
                 ),
                 Expanded(
                   child: Container(
-                    child: Text("\$${_productList.elementAt(position).price}",
+                    child: Text("\ZAR ${_productList.elementAt(position).price}",
                         style: TextStyle(fontFamily: 'opensans')),
                   ),
                 ),

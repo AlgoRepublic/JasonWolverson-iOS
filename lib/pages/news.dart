@@ -7,7 +7,7 @@ import 'package:jasonw/models/productsModel.dart';
 import 'package:jasonw/pages/paymentPage.dart';
 import 'package:jasonw/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:braintree_payment/braintree_payment.dart';
+//import 'package:braintree_payment/braintree_payment.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -88,13 +88,13 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       "GJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=";
 
   payNow() async {
-    BraintreePayment braintreePayment = new BraintreePayment();
-    var data = await braintreePayment.showDropIn(
-        nonce: clientNonce,
-        inSandbox: true,
-        amount: "2.0",
-        enableGooglePay: true);
-    print("Response of the payment $data");
+//    BraintreePayment braintreePayment = new BraintreePayment();
+//    var data = await braintreePayment.showDropIn(
+//        nonce: clientNonce,
+//        inSandbox: true,
+//        amount: "2.0",
+//        enableGooglePay: true);
+//    print("Response of the payment $data");
   }
 
   showAlertDialog(BuildContext context, int posi) {
