@@ -77,10 +77,9 @@ class _MyAppState extends State<MyApp> {
           '/journal': (BuildContext context) => Journal(_model),
           '/about': (BuildContext context) => About(),
           '/seeMe': (BuildContext context) => SeeMe(),
-          //   '/reflect_admin': (BuildContext context) =>
-          //       ReflectGoalsAdminPage(_model),
-          //   '/journal_admin': (BuildContext context) => JournalAdmin(_model),
-          //   '/journal_list': (BuildContext context) => JournalList(_model),
+          '/reflect_admin': (BuildContext context) => ReflectGoalsAdminPage(_model),
+          '/journal_admin': (BuildContext context) => JournalAdmin(_model),
+          '/journal_list': (BuildContext context) => JournalList(_model),
           '/heal': (BuildContext context) => Heal(),
           '/chatRoom': (BuildContext context) => ChatRoom(),
           '/products': (BuildContext context) => Products(),

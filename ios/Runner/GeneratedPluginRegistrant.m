@@ -10,12 +10,6 @@
 @import audioplayers;
 #endif
 
-#if __has_include(<braintree_payment/BraintreePaymentPlugin.h>)
-#import <braintree_payment/BraintreePaymentPlugin.h>
-#else
-@import braintree_payment;
-#endif
-
 #if __has_include(<firebase_messaging/FirebaseMessagingPlugin.h>)
 #import <firebase_messaging/FirebaseMessagingPlugin.h>
 #else
@@ -74,7 +68,6 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [AudioplayersPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersPlugin"]];
-  [BraintreePaymentPlugin registerWithRegistrar:[registry registrarForPlugin:@"BraintreePaymentPlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
   [FlutterAndroidPipPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterAndroidPipPlugin"]];
   [InAppPurchasePlugin registerWithRegistrar:[registry registrarForPlugin:@"InAppPurchasePlugin"]];
