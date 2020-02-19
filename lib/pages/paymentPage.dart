@@ -55,6 +55,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   key: _key,
                   javascriptMode: JavascriptMode.unrestricted,
                   initialUrl: currentUrl,
+                  gestureNavigationEnabled: true,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
                   },

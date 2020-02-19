@@ -1192,12 +1192,15 @@ mixin ReflectModel on ConnectedNewsModel {
     });
   }
 
-  Future<Null> fetchReflects() {
+  Future<Null> fetchReflects() async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString("token");
     _isLoading = true;
     notifyListeners();
     return http.get(
       'http://68.183.187.228/api/reflects/',
-      headers: {'Auth-Token': _authenticatedUser.token},
+      headers: {'Auth-Token': token},
     ).then<Null>((http.Response response) {
       final List<Reflect> fetchedReflectList = [];
       final Map<String, dynamic> productListData = json.decode(response.body);
