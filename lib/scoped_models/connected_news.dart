@@ -1023,10 +1023,13 @@ mixin EventModel on ConnectedNewsModel {
         print('newsssssss');
         final Events events = Events(
           id: newsId,
+          eventId: newsData['id'],
           title: newsData['title'],
           description: newsData['description'],
           scheduled_date: newsData['scheduled_date'],
           upcoming: newsData['upcoming'],
+          price: newsData['price'].toString(),
+          status: newsData['status'].toString()
         );
         print(events.description);
         fetchEventList.add(events);

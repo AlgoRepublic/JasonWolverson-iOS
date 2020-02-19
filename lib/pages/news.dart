@@ -167,10 +167,11 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     String token = sharedPreferences.getString("token");
     String email = sharedPreferences.getString("userEmail");
     String name = "farhat";
-    print(token);
+    print(widget.model.allEvents.elementAt(position).eventId);
+
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=10&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).id}&product_id=nill";
+        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${widget.model.allEvents.elementAt(position).price}&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).eventId}";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,
@@ -205,6 +206,51 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       showToast(jsonResponse["message"], duration: 4, gravity: Toast.BOTTOM);
     }
   }
+
+
+
+  interestedForEvent(int position) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString("token");
+    print("event");
+    Map data = {
+      'event_id': widget.model.allEvents.elementAt(position).id,
+      'status': "2",
+    };
+    var jsonResponse;
+    http.Response response =
+    await http.post("http://68.183.187.228/api/user_event_status",
+        headers: {
+          'Auth-Token': token,
+        },
+        body: data);
+    if (response.statusCode == 200) {
+      setState(() {
+//        isLoading = false;
+      });
+      jsonResponse = json.decode(response.body);
+      var success = jsonResponse["success"];
+      print(jsonResponse);
+      print(success);
+      print(response.body);
+//      sharedPreferences.setString(
+//          "eventId", jsonResponse["result"]["event_id"].toString());
+      showToast(jsonResponse["message"],
+          duration: 4, gravity: Toast.BOTTOM);
+//      Navigator.pop(context);
+    } else {
+      setState(() {
+//        isLoading = false;
+      });
+      jsonResponse = json.decode(response.body);
+      var success = jsonResponse["success"];
+      print(jsonResponse);
+      print(success);
+      print(response.body);
+      showToast(jsonResponse["message"], duration: 8, gravity: Toast.BOTTOM);
+    }
+  }
+
 
   void showToast(String msg, {int duration, int gravity}) {
     Toast.show(
@@ -328,9 +374,8 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
             if (value == 1) {
               //   showAlertDialog(context, position);
               getPaymentUrl(position);
-            } else {
-              /////// hit api for interested
-
+            } else if(value==2){
+              interestedForEvent(position);
             }
           },
 //          offset: Offset.fromDirection(120 , [20 ] ),
@@ -438,6 +483,9 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       },
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
