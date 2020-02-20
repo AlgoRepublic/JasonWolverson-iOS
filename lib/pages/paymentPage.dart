@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +20,7 @@ class PaymentPage extends StatefulWidget {
 
   const PaymentPage({Key key, this.url, this.eventId, this.productId})
       : super(key: key);
+
   @override
   _PaymentPageState createState() => _PaymentPageState();
 }
@@ -59,6 +62,9 @@ class _PaymentPageState extends State<PaymentPage> {
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
                   },
+                  gestureRecognizers: Set()
+                    ..add(Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer())),
                   onPageFinished: (String url) {
                     print('Page finished loading: $url');
                     currentUrl = url;
@@ -77,9 +83,10 @@ class _PaymentPageState extends State<PaymentPage> {
                         });
                         buyProduct();
                       }
-                    }
-                    else if(url=="https://jasonwolverson.algorepublic.com/cancel"){
-                      showToast("Please try again",gravity: Toast.BOTTOM,duration: 4);
+                    } else if (url ==
+                        "https://jasonwolverson.algorepublic.com/cancel") {
+                      showToast("Please try again",
+                          gravity: Toast.BOTTOM, duration: 4);
                       Navigator.pop(context);
                     }
 

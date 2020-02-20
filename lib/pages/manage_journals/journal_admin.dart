@@ -65,7 +65,7 @@ class JournalAdmin  extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: <Widget>[JournalEdit(), Jourgit nalList(model)],
+          children: <Widget>[JournalEdit(), JournalList(model)],
         ),
       ),
     );

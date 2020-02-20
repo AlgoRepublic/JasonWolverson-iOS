@@ -214,7 +214,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     String token = sharedPreferences.getString("token");
     print("event");
     Map data = {
-      'event_id': widget.model.allEvents.elementAt(position).id,
+      'event_id': widget.model.allEvents.elementAt(position).eventId.toString(),
       'status': "2",
     };
     var jsonResponse;
