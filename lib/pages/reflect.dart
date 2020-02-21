@@ -1,3 +1,6 @@
+import 'dart:async';
+
+
 import 'package:flutter/material.dart';
 import 'package:jasonw/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -38,6 +41,7 @@ class MySeparator extends StatelessWidget {
 class Reflect extends StatefulWidget {
   final MainModel model;
 
+
   Reflect(this.model);
 
   @override
@@ -48,12 +52,16 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 //  ScrollController _controller = new ScrollController();
 //  final GlobalKey _menuKey = new GlobalKey();
   TabController _controller;
+  bool loading=true;
+  final snackBar = new SnackBar(content: new Text("Reflects not found"),backgroundColor: Colors.black);
+
 
   @override
   void initState() {
     super.initState();
-    print('fetch News');
+//    print('fetch News');
     widget.model.fetchReflects();
+//    loading=true;
 //    _controller = new TabController(length: 2, vsync: this);
   }
 
@@ -73,11 +81,23 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
+        if(model.isApiHit){
         if (model.allReflects.length == 0) {
+          Timer(Duration(seconds: 1), () {
+
+            print("Yeah, this line is printed after 3 seconds");
+          if(this.loading){
+             showAlertDialog(context);}
+          });
+        }
+        }
+        else
+        {
+          print("sbc");
           return Container(
               child: Center(
-            child: CircularProgressIndicator(),
-          ));
+                child: CircularProgressIndicator(),
+              ));
         }
         return ListView.builder(
             shrinkWrap: true,
@@ -186,6 +206,8 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
                   ],
                 )),
 
+
+
 //            new Container(
 //              padding:EdgeInsets.fromLTRB(25.0,0,25,0) ,
 //              margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
@@ -212,6 +234,14 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 //            ),
           ],
         ),
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        //Widget to display inside Floating Action Button, can be `Text`, `Icon` or any widget.
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, '/reflect_admin');
+        },
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
           height: 50,
@@ -351,25 +381,71 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
                           fontSize: 13),
                     )),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/reflect_admin');
-                },
-                child: Container(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      'Manage Reflect',
-                      style: TextStyle(
-                          color: hexToColor('#BCB2C6'),
-                          fontFamily: 'opensans',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13),
-                    )),
-              ),
+//              InkWell(
+//                onTap: () {
+//                  Navigator.pushReplacementNamed(context, '/reflect_admin');
+//                },
+//                child: Container(
+//                    padding: EdgeInsets.all(15.0),
+//                    child: Text(
+//                      'Manage Reflect',
+//                      style: TextStyle(
+//                          color: hexToColor('#BCB2C6'),
+//                          fontFamily: 'opensans',
+//                          fontWeight: FontWeight.w600,
+//                          fontSize: 13),
+//                    )),
+//              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+this.loading=false;
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Smash Life".toUpperCase()),
+      content: Container(
+        height: 80,
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.only(bottom: 10),
+              child: Text("Reflects not found",
+                  style: TextStyle(fontFamily: 'opensans')),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+//        FlatButton(
+//          child: Text("CANCEL"),
+//          onPressed: () {
+//            Navigator.of(context).pop();
+//          },
+//        ),
+        FlatButton(
+          child: Text("OK".toUpperCase()),
+          onPressed: () {
+            this.loading=true;
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 }

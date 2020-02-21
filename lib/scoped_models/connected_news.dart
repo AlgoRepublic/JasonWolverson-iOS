@@ -1048,6 +1048,7 @@ mixin EventModel on ConnectedNewsModel {
 }
 
 mixin ReflectModel on ConnectedNewsModel {
+  bool isApiHit=false;
   List<Reflect> get allReflects {
     return List.from(_reflects);
   }
@@ -1195,22 +1196,28 @@ mixin ReflectModel on ConnectedNewsModel {
   }
 
   Future<Null> fetchReflects() async {
-
+//    _isLoading = true;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token = sharedPreferences.getString("token");
-    _isLoading = true;
+
     notifyListeners();
     return http.get(
       'http://68.183.187.228/api/reflects/',
       headers: {'Auth-Token': token},
     ).then<Null>((http.Response response) {
       final List<Reflect> fetchedReflectList = [];
+      print("reflects = ${response.body}");
       final Map<String, dynamic> productListData = json.decode(response.body);
-      if (productListData == null) {
+
+      print("reflects products  = $productListData");
+      if (response.body.isNotEmpty) {
+        print("print");
         _isLoading = false;
+        this.isApiHit=true;
         notifyListeners();
         return;
       }
+
       productListData.forEach((String productId, dynamic productData) {
         final Reflect product = Reflect(
           reflectID: productId,
@@ -1226,10 +1233,12 @@ mixin ReflectModel on ConnectedNewsModel {
       });
       _reflects = fetchedReflectList;
       _isLoading = false;
+      this.isApiHit=true;
       notifyListeners();
       _selReflectId = null;
     }).catchError((error) {
       _isLoading = false;
+      this.isApiHit=true;
       notifyListeners();
       return;
     });
