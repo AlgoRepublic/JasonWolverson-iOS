@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:jasonw/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -41,7 +40,6 @@ class MySeparator extends StatelessWidget {
 class Reflect extends StatefulWidget {
   final MainModel model;
 
-
   Reflect(this.model);
 
   @override
@@ -52,9 +50,9 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 //  ScrollController _controller = new ScrollController();
 //  final GlobalKey _menuKey = new GlobalKey();
   TabController _controller;
-  bool loading=true;
-  final snackBar = new SnackBar(content: new Text("Reflects not found"),backgroundColor: Colors.black);
-
+  bool loading = true;
+  final snackBar = new SnackBar(
+      content: new Text("Reflects not found"), backgroundColor: Colors.black);
 
   @override
   void initState() {
@@ -81,23 +79,21 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
-        if(model.isApiHit){
-        if (model.allReflects.length == 0) {
-          Timer(Duration(seconds: 1), () {
-
-            print("Yeah, this line is printed after 3 seconds");
-          if(this.loading){
-             showAlertDialog(context);}
-          });
-        }
-        }
-        else
-        {
+        if (model.isApiHit) {
+          if (model.allReflects.length == 0) {
+            Timer(Duration(seconds: 1), () {
+              print("Yeah, this line is printed after 3 seconds");
+              if (this.loading) {
+                showAlertDialog(context);
+              }
+            });
+          }
+        } else {
           print("sbc");
           return Container(
               child: Center(
-                child: CircularProgressIndicator(),
-              ));
+            child: CircularProgressIndicator(),
+          ));
         }
         return ListView.builder(
             shrinkWrap: true,
@@ -126,6 +122,7 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     Color hexToColor(String code) {
@@ -133,80 +130,78 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
     }
 
     return Scaffold(
-        backgroundColor: hexToColor("#ffffff"),
-        appBar: new AppBar(
-          backgroundColor: hexToColor("#3A3171"),
-          centerTitle: true,
-          elevation: 0.0,
-          title: new Text(
-            'REFLECT',
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'opensans', fontSize: 16.0),
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pushReplacementNamed(context, '/dashboard'), // POPPING globalContext
-          ),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/dashboard');
-                })
-          ],
+      backgroundColor: hexToColor("#ffffff"),
+      appBar: new AppBar(
+        backgroundColor: hexToColor("#3A3171"),
+        centerTitle: true,
+        elevation: 0.0,
+        title: new Text(
+          'REFLECT',
+          style: TextStyle(
+              color: Colors.white, fontFamily: 'opensans', fontSize: 16.0),
         ),
-
-        body: new Stack(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushReplacementNamed(
+              context, '/dashboard'), // POPPING globalContext
+        ),
+        actions: <Widget>[
+          new IconButton(
+              icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/dashboard');
+              })
+        ],
+      ),
+      body: new Stack(
 //        shrinkWrap: true,
 
-          children: <Widget>[
-            new Container(
+        children: <Widget>[
+          new Container(
 //                      height:120.0,
-              margin: EdgeInsets.only(top: 60.0),
+            margin: EdgeInsets.only(top: 60.0),
 //                      padding: EdgeInsets.all(20),
-              child: _buildNewsList(),
-            ),
+            child: _buildNewsList(),
+          ),
 
-            new Container(
-                decoration: new BoxDecoration(
-                  color: hexToColor("#3A3171"),
-                  border: Border(
-                      bottom: BorderSide(
+          new Container(
+              decoration: new BoxDecoration(
+                color: hexToColor("#3A3171"),
+                border: Border(
+                    bottom: BorderSide(
+                  color: hexToColor('#3A3171'),
+                )),
+              ),
+              padding: EdgeInsets.fromLTRB(30, 5, 0, 5),
+              margin: EdgeInsets.only(top: 20.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Container(
                     color: hexToColor('#3A3171'),
-                  )),
-                ),
-                padding: EdgeInsets.fromLTRB(30, 5, 0, 5),
-                margin: EdgeInsets.only(top: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Container(
-                      color: hexToColor('#3A3171'),
 //                              textColor: Colors.white,
 //                              elevation: 0.0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                              child: new Text(
-                            '20-August-2019',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                fontFamily: 'opensans'),
-                          )),
-                          Spacer(),
-                          Expanded(
-                            child: new Icon(Icons.calendar_today,
-                                color: Colors.white, size: 14.0),
-                          )
-                        ],
-                      ),
-                    )),
-                  ],
-                )),
-
-
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                            child: new Text(
+                          '20-August-2019',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.0,
+                              fontFamily: 'opensans'),
+                        )),
+                        Spacer(),
+                        Expanded(
+                          child: new Icon(Icons.calendar_today,
+                              color: Colors.white, size: 14.0),
+                        )
+                      ],
+                    ),
+                  )),
+                ],
+              )),
 
 //            new Container(
 //              padding:EdgeInsets.fromLTRB(25.0,0,25,0) ,
@@ -232,9 +227,8 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 //                ],
 //              ),
 //            ),
-          ],
-        ),
-
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         //Widget to display inside Floating Action Button, can be `Text`, `Icon` or any widget.
@@ -271,7 +265,6 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
                 },
                 child: Container(
                   padding: EdgeInsets.all(15.0),
-
                   child: Text(
                     'JOURNAL',
                     style: TextStyle(
@@ -315,7 +308,9 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
                 ),
               ),
               InkWell(
-                onTap: () { Navigator.pushReplacementNamed(context, '/news');},
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/news');
+                },
                 child: Container(
                   padding: EdgeInsets.all(15.0),
                   child: Text(
@@ -335,7 +330,6 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
                 },
                 child: Container(
                   padding: EdgeInsets.all(15.0),
-
                   child: Text(
                     'CHAT',
                     style: TextStyle(
@@ -405,7 +399,7 @@ class _ReflectState extends State<Reflect> with SingleTickerProviderStateMixin {
 
   showAlertDialog(BuildContext context) {
     // set up the button
-this.loading=false;
+    this.loading = false;
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Smash Life".toUpperCase()),
@@ -433,7 +427,7 @@ this.loading=false;
         FlatButton(
           child: Text("OK".toUpperCase()),
           onPressed: () {
-            this.loading=true;
+            this.loading = true;
             Navigator.of(context).pop();
           },
         ),
@@ -447,5 +441,4 @@ this.loading=false;
       },
     );
   }
-
 }

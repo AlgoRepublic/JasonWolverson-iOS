@@ -1081,7 +1081,10 @@ mixin ReflectModel on ConnectedNewsModel {
   }
 
   Future<bool> addReflect(String title, String description) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString("token");
     _isLoading = true;
+    print("add");
     notifyListeners();
     final Map<String, dynamic> ReflectData = {
       'title': title,
@@ -1093,11 +1096,11 @@ mixin ReflectModel on ConnectedNewsModel {
           await http.post('http://68.183.187.228/api/reflects',
               headers: {
                 'Content-Type': 'application/json',
-                'Auth-Token': _authenticatedUser.token,
+                'Auth-Token':token,
               },
               body: json.encode(ReflectData));
 
-      print(response.body);
+      print("response  ${response.body}");
       if (response.statusCode != 200 && response.statusCode != 201) {
         _isLoading = false;
         notifyListeners();
@@ -1119,6 +1122,7 @@ mixin ReflectModel on ConnectedNewsModel {
       notifyListeners();
       return true;
     } catch (error) {
+      print(error);
       _isLoading = false;
       notifyListeners();
       return false;
@@ -1126,6 +1130,8 @@ mixin ReflectModel on ConnectedNewsModel {
   }
 
   Future<bool> updateReflect(String title, String description) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString("token");
     _isLoading = true;
     notifyListeners();
     print('${selectedReflect.id}');
@@ -1142,7 +1148,7 @@ mixin ReflectModel on ConnectedNewsModel {
         .put('http://68.183.187.228/api/reflects/${selectedReflect.id}',
             headers: {
               'Content-Type': 'application/json',
-              'Auth-Token': _authenticatedUser.token,
+              'Auth-Token': token,
             },
             body: json.encode(updateData))
         .then((http.Response response) {
@@ -1169,7 +1175,9 @@ mixin ReflectModel on ConnectedNewsModel {
     });
   }
 
-  Future<bool> deleteReflect() {
+  Future<bool> deleteReflect() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString("token");
     _isLoading = true;
     print(selectedReflect.id);
     final deletedReflectId = selectedReflect.id;
@@ -1181,7 +1189,7 @@ mixin ReflectModel on ConnectedNewsModel {
       'http://68.183.187.228/api/reflects/${deletedReflectId}',
       headers: {
         'Content-Type': 'application/json',
-        'Auth-Token': _authenticatedUser.token,
+        'Auth-Token': token,
       },
     ).then((http.Response response) {
       print(response.body);

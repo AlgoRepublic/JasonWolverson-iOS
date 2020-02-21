@@ -194,8 +194,8 @@ class _JournalEditState extends State<JournalEdit> {
   }
 
 
-  void _submitForm(Function addJournal, Function updateJournal, Function setSelectedJournal,
-      [int selectedJournalIndex]) {
+  void _submitForm(Function addJournal, Function updateJournal, Function setSelectedJournal, [int selectedJournalIndex]) {
+    print("selectedJournalIndex");
     if (!_formKey.currentState.validate()) {
       return;
     }

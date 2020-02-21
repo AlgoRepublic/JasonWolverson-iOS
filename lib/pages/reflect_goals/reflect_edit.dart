@@ -100,6 +100,7 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
           child: Text('Save'),
           textColor: Colors.white,
           onPressed: () {
+            print("${model.selectedReflectIndex}");
             _submitForm(
                 model.addReflect,
                 model.updateReflect,
@@ -170,11 +171,13 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 
   void _submitForm(Function addReflect, Function updateReflect, Function setSelectedReflect,
       [int selectedReflectIndex]) {
+
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
     if (selectedReflectIndex == -1) {
+      print("ref");
       addReflect(
         _formData['title'],
         _formData['description'],
@@ -182,8 +185,9 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 //        _formData['price'],
       ).then((bool success) {
         if (success) {
+
           Navigator
-              .pushReplacementNamed(context, '/reflect_admin')
+              .pushReplacementNamed(context, '/reflect')
               .then((_) => setSelectedReflect(null));
         } else {
           showDialog(
