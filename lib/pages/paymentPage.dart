@@ -49,6 +49,9 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      child:Container(
+        height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
           Column(
@@ -129,7 +132,7 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
         ],
       ),
-    );
+    ));
   }
 
   goingToEvent() async {
