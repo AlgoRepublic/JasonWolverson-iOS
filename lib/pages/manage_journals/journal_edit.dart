@@ -75,7 +75,7 @@ class _JournalEditState extends State<JournalEdit> {
     );
   }
 
-  Widget _buildIssueDate(Journal journal){
+  Widget _buildIssueDate(Journal journal) {
     return EnsureVisibleWhenFocused(
       focusNode: _issueDateFocusNode,
       child: DateTimePickerFormField(
@@ -83,22 +83,19 @@ class _JournalEditState extends State<JournalEdit> {
         focusNode: _issueDateFocusNode,
 //        initialValue: journal == null ? '' : journal.issue_date,
         decoration: new InputDecoration(
-
-
-
-            labelText: 'Date',
-            labelStyle: new TextStyle(color: hexToColor("#3A3171") , fontFamily: 'opensans'),
+          labelText: 'Date',
+          labelStyle: new TextStyle(
+              color: hexToColor("#3A3171"), fontFamily: 'opensans'),
 //                            hintText: 'Password',
 //                            hintStyle: new st,
-            hasFloatingPlaceholder: true,
-            alignLabelWithHint: true,
-            suffixIcon: Icon(
-              Icons.remove_red_eye,
-              size: 18.0,
-              color: hexToColor("#3A3171"),
-            ),
-            fillColor: Colors.white,
-
+          hasFloatingPlaceholder: true,
+          alignLabelWithHint: true,
+          suffixIcon: Icon(
+            Icons.remove_red_eye,
+            size: 18.0,
+            color: hexToColor("#3A3171"),
+          ),
+          fillColor: Colors.white,
         ),
         inputType: InputType.date,
         format: DateFormat("yyyy-MM-dd"),
@@ -117,7 +114,10 @@ class _JournalEditState extends State<JournalEdit> {
           _formData['issue_date'] = value.toString();
           print(value.toString());
         },
-        style: new TextStyle(fontFamily: 'opensans', color: hexToColor("#3A3171"), fontSize: 13.0),
+        style: new TextStyle(
+            fontFamily: 'opensans',
+            color: hexToColor("#3A3171"),
+            fontSize: 13.0),
       ),
     );
   }
@@ -128,22 +128,17 @@ class _JournalEditState extends State<JournalEdit> {
         return model.isLoading
             ? Center(child: CircularProgressIndicator())
             : RaisedButton(
-          color: hexToColor('#3A3171'),
-          child: Text('Save'),
-          textColor: Colors.white,
-          onPressed: () {
-            _submitForm(
-                model.addJournal,
-                model.updateJournal,
-                model.selectJournal,
-                model.selectedJournalIndex);
-
-          },
-        );
+                color: hexToColor('#3A3171'),
+                child: Text('Save'),
+                textColor: Colors.white,
+                onPressed: () {
+                  _submitForm(model.addJournal, model.updateJournal,
+                      model.selectJournal, model.selectedJournalIndex);
+                },
+              );
       },
     );
   }
-
 
   Widget _buildPageContent(BuildContext context, Journal journal) {
 //    final double deviceWidth = MediaQuery.of(context).size.width;
@@ -160,12 +155,10 @@ class _JournalEditState extends State<JournalEdit> {
 //          margin: EdgeInsets.only(),
 //          margin: EdgeInsets.all(10.0),
           child: Form(
-
             key: _formKey,
             child: ListView(
 //              padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
               children: <Widget>[
-
                 Container(
 //                  padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
                   child: _buildTitleTextField(journal),
@@ -193,8 +186,9 @@ class _JournalEditState extends State<JournalEdit> {
     );
   }
 
-
-  void _submitForm(Function addJournal, Function updateJournal, Function setSelectedJournal, [int selectedJournalIndex]) {
+  void _submitForm(
+      Function addJournal, Function updateJournal, Function setSelectedJournal,
+      [int selectedJournalIndex]) {
     print("selectedJournalIndex");
     if (!_formKey.currentState.validate()) {
       return;
@@ -208,8 +202,7 @@ class _JournalEditState extends State<JournalEdit> {
 //        _formData['price'],
       ).then((bool success) {
         if (success) {
-          Navigator
-              .pushReplacementNamed(context, '/journal_admin')
+          Navigator.pushReplacementNamed(context, '/journal_admin')
               .then((_) => setSelectedJournal(null));
         } else {
           showDialog(
@@ -236,51 +229,47 @@ class _JournalEditState extends State<JournalEdit> {
 //        _formData['image'],
 //        _formData[' price'],
       ).then((_) {
-        return Navigator
-            .pushReplacementNamed(context, '/journal')
+        return Navigator.pushReplacementNamed(context, '/journal')
             .then((_) async {
-              return setSelectedJournal(null);
-            });
+          return setSelectedJournal(null);
+        });
       });
     }
-
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
         final Widget pageContent =
-        _buildPageContent(context, model.selectedJournal);
+            _buildPageContent(context, model.selectedJournal);
         if (model.selectedJournalIndex == -1) {
           return pageContent;
         } else {
           return new Scaffold(
             appBar: new AppBar(
-              backgroundColor: hexToColor("#3A3171") ,
-              automaticallyImplyLeading:false,
+              backgroundColor: hexToColor("#3A3171"),
+              automaticallyImplyLeading: false,
               centerTitle: true,
               elevation: 0.0,
-              title: new Text('EDIT JOURNAL' , style: TextStyle(color: Colors.white, fontFamily: 'opensans', fontSize: 16.0),),
-
+              title: new Text(
+                'EDIT JOURNAL',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'opensans',
+                    fontSize: 16.0),
+              ),
               actions: <Widget>[
-                new IconButton(icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
-                    onPressed: (){
+                new IconButton(
+                  icon: Icon(Icons.home),
+                    // icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
+                    onPressed: () {
                       Navigator.pushReplacementNamed(context, '/dashboard');
                     }),
-
               ],
             ),
             body: Stack(
-              children: <Widget>[
-                SizedBox(
-                    height: 300,
-                    child: pageContent
-                )
-              ],
+              children: <Widget>[SizedBox(height: 300, child: pageContent)],
             ),
           );
         }

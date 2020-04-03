@@ -86,33 +86,24 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
         });
   }
 
-
-
-
-
   Widget _buildSubmitButton() {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
         return model.isLoading
             ? Center(child: CircularProgressIndicator())
             : RaisedButton(
-          color: hexToColor('#3A3171'),
-          child: Text('Save'),
-          textColor: Colors.white,
-          onPressed: () {
-            print("${model.selectedReflectIndex}");
-            _submitForm(
-                model.addReflect,
-                model.updateReflect,
-                model.selectReflect,
-                model.selectedReflectIndex);
-          },
-        );
+                color: hexToColor('#3A3171'),
+                child: Text('Save'),
+                textColor: Colors.white,
+                onPressed: () {
+                  print("${model.selectedReflectIndex}");
+                  _submitForm(model.addReflect, model.updateReflect,
+                      model.selectReflect, model.selectedReflectIndex);
+                },
+              );
       },
     );
   }
-
-
 
   Widget _buildPageContent(BuildContext context, Reflect reflect) {
 //    final double deviceWidth = MediaQuery.of(context).size.width;
@@ -129,7 +120,6 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 //          margin: EdgeInsets.only(),
 //          margin: EdgeInsets.all(10.0),
           child: Form(
-
             key: _formKey,
             child: ListView(
 //              padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
@@ -153,7 +143,7 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
                 Container(
 //                  padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
 //                  child: _buildPriceTextField(),
-                ),
+                    ),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -169,9 +159,9 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
     );
   }
 
-  void _submitForm(Function addReflect, Function updateReflect, Function setSelectedReflect,
+  void _submitForm(
+      Function addReflect, Function updateReflect, Function setSelectedReflect,
       [int selectedReflectIndex]) {
-
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -185,9 +175,7 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 //        _formData['price'],
       ).then((bool success) {
         if (success) {
-
-          Navigator
-              .pushReplacementNamed(context, '/reflect')
+          Navigator.pushReplacementNamed(context, '/reflect')
               .then((_) => setSelectedReflect(null));
         } else {
           showDialog(
@@ -213,8 +201,7 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 //        _formData['image'],
 //        _formData[' price'],
       ).then((_) {
-        return Navigator
-            .pushReplacementNamed(context, '/reflect')
+        return Navigator.pushReplacementNamed(context, '/reflect')
             .then((_) => setSelectedReflect(null));
       });
     }
@@ -239,7 +226,6 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
 ////        _formData['price'],
 //      );
 //    }
-
   }
 
   @override
@@ -247,35 +233,36 @@ class ReflectGoalsEditPageState extends State<ReflectGoalsEditPage> {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
         final Widget pageContent =
-        _buildPageContent(context, model.selectedReflect);
+            _buildPageContent(context, model.selectedReflect);
         if (model.selectedReflectIndex == -1) {
           return pageContent;
         } else {
           return new Scaffold(
             appBar: new AppBar(
-              backgroundColor: hexToColor("#3A3171") ,
-              automaticallyImplyLeading:false,
+              backgroundColor: hexToColor("#3A3171"),
+              automaticallyImplyLeading: false,
               centerTitle: true,
               elevation: 0.0,
-              title: new Text('EDIT REFLECT' , style: TextStyle(color: Colors.white, fontFamily: 'opensans', fontSize: 16.0),),
-
+              title: new Text(
+                'EDIT REFLECT',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'opensans',
+                    fontSize: 16.0),
+              ),
               actions: <Widget>[
-                new IconButton(icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
-                    onPressed: (){
+                new IconButton(
+                  icon: Icon(Icons.home),
+                    // icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
+                    onPressed: () {
                       Navigator.pushReplacementNamed(context, '/dashboard');
                     }),
-
               ],
             ),
-          body: Stack(
-            children: <Widget>[
-              SizedBox(
-                height: 300,
-                child: pageContent
-              )
-            ],
-          ),
-        );
+            body: Stack(
+              children: <Widget>[SizedBox(height: 300, child: pageContent)],
+            ),
+          );
         }
       },
     );

@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 
 enum AuthMode { Login }
 
-
 class Auth extends StatefulWidget {
   @override
 //  _AuthState createState() => _AuthState();
@@ -19,7 +18,6 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-
   final Map<String, dynamic> _formData = {
     'email': null,
     'password': null
@@ -30,7 +28,7 @@ class _AuthState extends State<Auth> {
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   AuthMode _authMode = AuthMode.Login;
-
+  bool _validatepassword = false;
   void _submitForm(Function login) async {
     if (!_formKey.currentState.validate()) {
       return;
@@ -39,13 +37,12 @@ class _AuthState extends State<Auth> {
     Map<String, dynamic> successInformation;
     if (_authMode == AuthMode.Login) {
       successInformation =
-      await login(_formData['email'], _formData['password']);
+          await login(_formData['email'], _formData['password']);
     }
 
     if (successInformation['success']) {
       Navigator.pushReplacementNamed(context, '/dashbaord');
-    }
-    else {
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -78,18 +75,15 @@ class _AuthState extends State<Auth> {
 //
 //}
 
-
-
-
   TapGestureRecognizer _recognizer1;
   @override
   void initState() {
     super.initState();
     _recognizer1 = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.push(context, new MaterialPageRoute(builder: (context) => new Register() ));
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => new Register()));
       };
-
   }
 
   @override
@@ -97,11 +91,11 @@ class _AuthState extends State<Auth> {
     Color hexToColor(String code) {
       return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     }
+
     return Scaffold(
       backgroundColor: Colors.white,
 
       body: new ListView(
-
         children: <Widget>[
           new Container(
             color: Colors.white,
@@ -110,7 +104,10 @@ class _AuthState extends State<Auth> {
               child: new Container(
 //                  color: Colors.black,
 
-                child: Image.asset('images/login-img.png' , fit: BoxFit.fill,),
+                child: Image.asset(
+                  'images/login-img.png',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
@@ -119,8 +116,8 @@ class _AuthState extends State<Auth> {
               new Container(
                 color: Colors.white,
                 child: new Container(
-                  margin: const EdgeInsets.fromLTRB(35.0 , 15.0 , 15.0 ,15.0),
-                  padding: const EdgeInsets.fromLTRB(0.0,2.0,0,2),
+                  margin: const EdgeInsets.fromLTRB(35.0, 15.0, 15.0, 15.0),
+                  padding: const EdgeInsets.fromLTRB(0.0, 2.0, 0, 2),
                   decoration: new BoxDecoration(
                     border: new Border(
                       bottom: new BorderSide(
@@ -131,36 +128,44 @@ class _AuthState extends State<Auth> {
                     ),
 //                border: new Border.all(color: Colors.blueAccent ,)
                   ),
-                  child: new Text('LOGIN', style: TextStyle(fontSize: 24.0 , color:hexToColor("#3A3171") , fontWeight: FontWeight.w600, letterSpacing: 0.0, fontFamily: 'opensans') , ),
+                  child: new Text(
+                    'LOGIN',
+                    style: TextStyle(
+                        fontSize: 24.0,
+                        color: hexToColor("#3A3171"),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.0,
+                        fontFamily: 'opensans'),
+                  ),
                 ),
-
               )
-
             ],
           ),
-
           new Form(
             key: _formKey,
             child: new Container(
               color: Colors.white,
-              padding: const EdgeInsets.fromLTRB(25.0, 10.0 ,25.0, 10.0),
-              child:new Container(
-
+              padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+              child: new Container(
                 child: new Center(
                   child: new Column(
                     children: <Widget>[
-                      new Padding(padding: const EdgeInsets.only(top:5.0)),
+                      new Padding(padding: const EdgeInsets.only(top: 5.0)),
                       new TextFormField(
                         controller: email,
                         decoration: new InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: hexToColor("#3A3171"), width: 1.0),
+                              borderSide: BorderSide(
+                                  color: hexToColor("#3A3171"), width: 1.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: hexToColor("#3A3171"), width: 1.0),
+                              borderSide: BorderSide(
+                                  color: hexToColor("#3A3171"), width: 1.0),
                             ),
                             labelText: 'email',
-                            labelStyle: new TextStyle(color: hexToColor("#3A3171") , fontFamily: 'opensans'),
+                            labelStyle: new TextStyle(
+                                color: hexToColor("#3A3171"),
+                                fontFamily: 'opensans'),
                             suffixIcon: Icon(
                               Icons.email,
                               size: 18.0,
@@ -170,35 +175,40 @@ class _AuthState extends State<Auth> {
                             border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(4.0),
                                 borderSide: new BorderSide(
-                                    color: Colors.yellow , width: 0.0
-                                )
-                            )
-                        ),
-
-                        validator: (val){
-                          if (val.length==0){
+                                    color: Colors.yellow, width: 0.0))),
+                        validator: (val) {
+                          if (val.length == 0) {
                             return "Email Cannot be empty";
-                          }else{
+                          } else {
                             return null;
                           }
-
                         },
                         keyboardType: TextInputType.emailAddress,
-                        style: new TextStyle(fontFamily: 'open sans', color: hexToColor("#3A3171"), fontSize: 13.0,height: 1.0),
+                        style: new TextStyle(
+                            fontFamily: 'open sans',
+                            color: hexToColor("#3A3171"),
+                            fontSize: 13.0,
+                            height: 1.0),
                       ),
-                      new Padding(padding: const EdgeInsets.only(top:15.0)),
+                      new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       new TextFormField(
                         controller: password,
                         obscureText: true,
                         decoration: new InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: hexToColor("#3A3171"), width: 1.0),
+                              borderSide: BorderSide(
+                                  color: hexToColor("#3A3171"), width: 1.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: hexToColor("#3A3171"), width: 1.0),
+                              borderSide: BorderSide(
+                                  color: hexToColor("#3A3171"), width: 1.0),
                             ),
                             labelText: 'Password',
-                            labelStyle: new TextStyle(color: hexToColor("#3A3171") , fontFamily: 'opensans'),
+                            labelStyle: new TextStyle(
+                                color: hexToColor("#3A3171"),
+                                fontFamily: 'opensans'),
+                            errorText:
+                                _validatepassword ? 'Invalid Password' : null,
 //                            hintText: 'Password',
 //                            hintStyle: new st,
                             hasFloatingPlaceholder: true,
@@ -211,43 +221,53 @@ class _AuthState extends State<Auth> {
                             fillColor: Colors.white,
                             border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(4.0),
-                                borderSide: new BorderSide(
-                                    color: Colors.blue[700]
-                                )
-                            )
-                        ),
-
-                        validator: (val){
-                          if (val.length==0){
-                            return "Email Cannot be empty";
-                          }else{
+                                borderSide:
+                                    new BorderSide(color: Colors.blue[700]))),
+                        onChanged: (value) {
+                          if (value.isEmpty || value.length < 6) {
+                            setState(() {
+                              _validatepassword = true;
+                            });
+                          } else {
+                            setState(() {
+                              _validatepassword = false;
+                            });
+                          }
+                        },
+                        validator: (val) {
+                          if (val.length == 0) {
+                            return "Password Cannot be empty";
+                          } else {
                             return null;
                           }
-
                         },
                         keyboardType: TextInputType.emailAddress,
-                        style: new TextStyle(fontFamily: 'opensans', color: hexToColor("#3A3171"), fontSize: 13.0),
+                        style: new TextStyle(
+                            fontFamily: 'opensans',
+                            color: hexToColor("#3A3171"),
+                            fontSize: 13.0),
                       ),
 
-
-                      new Padding(padding: const EdgeInsets.only(top:8.0)),
+                      new Padding(padding: const EdgeInsets.only(top: 8.0)),
 
                       Row(
                         children: <Widget>[
 //
                           Expanded(
                             child: InkWell(
-                              onTap: (){},
-                              child: new Text('Forgot Password?', style: TextStyle(fontSize: 13.0, color: hexToColor("#3A3171"), fontFamily: 'opensans'), textAlign: TextAlign.right),
-
+                              onTap: () {},
+                              child: new Text('Forgot Password?',
+                                  style: TextStyle(
+                                      fontSize: 13.0,
+                                      color: hexToColor("#3A3171"),
+                                      fontFamily: 'opensans'),
+                                  textAlign: TextAlign.right),
                             ),
                           )
                         ],
-
                       ),
 
-
-                      new Padding(padding: const EdgeInsets.only(top:35.0)),
+                      new Padding(padding: const EdgeInsets.only(top: 35.0)),
 
 //                      Row(
 //                        children: <Widget>[
@@ -272,26 +292,27 @@ class _AuthState extends State<Auth> {
                       ScopedModelDescendant<MainModel>(
                         builder: (BuildContext context, Widget child,
                             MainModel model) {
-
                           return model.isLoading
                               ? CircularProgressIndicator()
                               : MaterialButton(
-                              color: hexToColor("#3A3171"),
-                              textColor: Colors.white,
-                              elevation: 0.0,
-                              height: 52,
+                                  color: hexToColor("#3A3171"),
+                                  textColor: Colors.white,
+                                  elevation: 0.0,
+                                  height: 52,
 //                            child: Text(_authMode == AuthMode.Login
 //                                ? 'LOGIN'
 //                                : 'SIGNUP'),
-                            onPressed: () =>
-                                _submitForm(model.login),
-                            child: new Text('LOGIN', style: TextStyle(fontSize: 14.0 , fontFamily: 'opensans'),),
-                          );
+                                  onPressed: () => _submitForm(model.login),
+                                  child: new Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                        fontSize: 14.0, fontFamily: 'opensans'),
+                                  ),
+                                );
                         },
                       ),
 
-                      new Padding(padding: const EdgeInsets.only(top:55.0)),
-
+                      new Padding(padding: const EdgeInsets.only(top: 55.0)),
 
                       Row(
                         children: <Widget>[
@@ -302,45 +323,37 @@ class _AuthState extends State<Auth> {
 //                            )
 
                             child: Text.rich(
-
                               TextSpan(
                                 children: <TextSpan>[
-                                  TextSpan(text: "Don't have an account? ",  style: TextStyle(color: Colors.black) ),
                                   TextSpan(
-                                      text: 'Register now', recognizer: _recognizer1,  style: TextStyle(color: hexToColor("#3A3171"), decoration: TextDecoration.underline) ),
+                                      text: "Don't have an account? ",
+                                      style: TextStyle(color: Colors.black)),
+                                  TextSpan(
+                                      text: 'Register now',
+                                      recognizer: _recognizer1,
+                                      style: TextStyle(
+                                          color: hexToColor("#3A3171"),
+                                          decoration:
+                                              TextDecoration.underline)),
                                 ],
                               ),
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontFamily: 'opensans'
-
-                              ),
-
+                                  fontSize: 14.0, fontFamily: 'opensans'),
                             ),
 
 //                            child: new Text("Don't have an account?" ,
 //                                style: TextStyle(fontSize: 13.0), textAlign: TextAlign.center,
 //                            ),
-
                           ),
-
-
                         ],
-
                       ),
-
                     ],
-
                   ),
                 ),
-
               ),
             ),
-
           ),
-
-
         ],
       ),
 
@@ -406,8 +419,6 @@ class _AuthState extends State<Auth> {
 //          ),
 //        ),
 //      ),
-
     );
   }
 }
-

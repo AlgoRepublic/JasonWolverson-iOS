@@ -35,7 +35,8 @@ class ReflectGoalsAdminPage extends StatelessWidget {
           ),
           actions: <Widget>[
             new IconButton(
-                icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
+              icon: Icon(Icons.home),
+                // icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/reflect_list');
                 })

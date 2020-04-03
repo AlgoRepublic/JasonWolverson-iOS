@@ -27,7 +27,7 @@ class _AuthState extends State<Auth> {
 //    'acceptTerms': false
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  bool _validatepassword = false;
 //TextEditingController email = new TextEditingController();
 //TextEditingController password = new TextEditingController();
 //final TextEditingController _passwordTextController = TextEditingController();
@@ -292,6 +292,8 @@ class _AuthState extends State<Auth> {
                             labelStyle: new TextStyle(
                                 color: hexToColor("#3A3171"),
                                 fontFamily: 'opensans'),
+                            errorText:
+                                _validatepassword ? 'Invalid Password' : null,
 //                            hintText: 'Password',
 //                            hintStyle: new st,
                             hasFloatingPlaceholder: true,
@@ -306,7 +308,17 @@ class _AuthState extends State<Auth> {
                                 borderRadius: new BorderRadius.circular(4.0),
                                 borderSide:
                                     new BorderSide(color: Colors.blue[700]))),
-
+                        onChanged: (value) {
+                          if (value.isEmpty || value.length < 6) {
+                            setState(() {
+                              _validatepassword = true;
+                            });
+                          } else {
+                            setState(() {
+                              _validatepassword = false;
+                            });
+                          }
+                        },
                         validator: (val) {
                           if (val.length == 0) {
                             return "Password Cannot be empty";

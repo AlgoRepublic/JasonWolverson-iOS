@@ -64,11 +64,11 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/': (BuildContext context) => ScopedModelDescendant(
                 builder: (BuildContext context, Widget child, MainModel model) {
-                  return model.user == null ? SplashScreen() : Dashboard();
+                  return model.user == null ? SplashScreen() : Dashboard(_model);
                 },
               ),
           '/Auth': (BuildContext context) => Auth(),
-          '/dashboard': (BuildContext context) => Dashboard(),
+          '/dashboard': (BuildContext context) => Dashboard(_model),
           '/news': (BuildContext context) => News(model: _model),
           '/task_list': (BuildContext context) => TaskList(_model),
           '/reflect': (BuildContext context) => Reflect(_model),
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
           '/journal_admin': (BuildContext context) => JournalAdmin(_model),
           '/journal_list': (BuildContext context) => JournalList(_model),
           '/heal': (BuildContext context) => Heal(),
-          '/chatRoom': (BuildContext context) => ChatRoom(),
+          '/chatRoom': (BuildContext context) => ChatRoom(_model),
           '/products': (BuildContext context) => Products(),
           '/paymentPage': (BuildContext context) => PaymentPage(),
         },
@@ -92,14 +92,14 @@ class _MyAppState extends State<MyApp> {
           }
           if (pathElements[1] == 'dashboard') {
             return MaterialPageRoute<bool>(
-              builder: (BuildContext context) => Dashboard(),
+              builder: (BuildContext context) => Dashboard(_model),
             );
           }
           return null;
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
-              builder: (BuildContext context) => Dashboard());
+              builder: (BuildContext context) => Dashboard(_model));
         },
       ),
     );

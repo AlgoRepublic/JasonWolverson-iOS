@@ -5,6 +5,7 @@ import 'package:bubble/bubble.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:jasonw/models/MessageModel.dart';
+import 'package:jasonw/scoped_models/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'dart:async';
@@ -13,20 +14,17 @@ import 'package:http/http.dart' as http;
 enum PlayerState { stopped, playing, paused }
 
 class ChatRoom extends StatefulWidget {
+  final model;
+
+  ChatRoom(this.model);
+
   @override
   _ChatRoomState createState() => _ChatRoomState();
-
-  void callChat() {
-    print("call chat");
-    createState().getAllChat();
-  }
 }
 
 class _ChatRoomState extends State<ChatRoom> {
   TextEditingController _textFieldController = TextEditingController();
-  List<MessageModel> _Messages = new List<MessageModel>();
-  List<MessageModel> listm = new List<MessageModel>();
-  final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+  List<MessageModel> _messages =[];
   ScrollController _scrollController = new ScrollController();
   bool _isLoading = true;
   AudioPlayer audioPlayer;
@@ -50,40 +48,17 @@ class _ChatRoomState extends State<ChatRoom> {
       position != null ? position.toString().split('.').first : '';
 
   bool isMuted = false;
-
+  Timer timer;
   StreamSubscription _positionSubscription;
   StreamSubscription _audioPlayerStateSubscription;
-
+  String _homeScreenText = "Waiting for token...";
   @override
   void initState() {
+    _messages = widget.model.messagesList;
     initAudioPlayer();
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessagejjj: $message");
-
-        print("ob");
-        Navigator.pushReplacementNamed(context, '/chatRoom');
-        getAllChat();
-        print("object");
-        final notification = message['notification'];
-        setState(() {
-          print("title =$notification['title']  body = $notification['body']");
-        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-
-        final notification = message['data'];
-
-        print("title =$notification['title']  body = $notification['body']");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
-
-    getAllChat();
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) => fetchData());
   }
+
 
   @override
   void dispose() {
@@ -93,9 +68,14 @@ class _ChatRoomState extends State<ChatRoom> {
     audioPlayer.release();
     audioPlayer.stop();
     _isLoading = false;
+    timer?.cancel();
     super.dispose();
   }
-
+  void fetchData() async {
+    _messages = widget.model.messagesList;
+      setState(() {
+      });
+    }
   void initAudioPlayer() {
     audioPlayer = new AudioPlayer();
     _positionSubscription = audioPlayer.onAudioPositionChanged
@@ -130,15 +110,15 @@ class _ChatRoomState extends State<ChatRoom> {
 
     if (isPlaying) {
       stop(positi);
-      _Messages.elementAt(last_position).is_play = false;
+      _messages.elementAt(last_position).is_play = false;
 //        setState(() {
 //          playerState = PlayerState.playing;
 //        });
 
     }
 //    else {
-    _Messages.elementAt(positi).is_play = true;
-    await audioPlayer.play("$baseUrl${_Messages.elementAt(positi).is_audio}");
+    _messages.elementAt(positi).is_play = true;
+    await audioPlayer.play("$baseUrl${_messages.elementAt(positi).is_audio}");
     last_position = positi;
     setState(() {
       playerState = PlayerState.playing;
@@ -153,7 +133,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Future stop(int positi) async {
-    _Messages.elementAt(positi).is_play = false;
+    _messages.elementAt(positi).is_play = false;
     await audioPlayer.stop();
     setState(() {
       playerState = PlayerState.stopped;
@@ -207,7 +187,8 @@ class _ChatRoomState extends State<ChatRoom> {
         ),
         actions: <Widget>[
           new IconButton(
-              icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
+              icon: Icon(Icons.home),
+              // icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/dashboard');
               })
@@ -218,7 +199,7 @@ class _ChatRoomState extends State<ChatRoom> {
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(bottom: 10),
         child: ListView.builder(
-          itemCount: _Messages.length,
+          itemCount: _messages.length,
           controller: _scrollController,
           reverse: true,
           shrinkWrap: true,
@@ -228,7 +209,7 @@ class _ChatRoomState extends State<ChatRoom> {
               child: Column(
                 children: <Widget>[
                   Visibility(
-                    visible: _Messages.elementAt(position).is_send == '1'
+                    visible: _messages.elementAt(position).is_send == '1'
                         ? true
                         : false,
                     child: Bubble(
@@ -244,7 +225,7 @@ class _ChatRoomState extends State<ChatRoom> {
                               alignment: Alignment.topLeft,
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
-                                child: Text(_Messages.elementAt(position).body,
+                                child: Text(_messages.elementAt(position).body,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(fontSize: 18)),
                               ),
@@ -256,8 +237,9 @@ class _ChatRoomState extends State<ChatRoom> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                    "${_Messages.elementAt(position).created_at}",
-                                  style: TextStyle(fontSize: 10,color: Colors.blueGrey),
+                                  "${_messages.elementAt(position).created_at}",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueGrey),
                                 ),
                               ),
                             )
@@ -265,10 +247,10 @@ class _ChatRoomState extends State<ChatRoom> {
                         )),
                   ),
                   Visibility(
-                    visible: (_Messages.elementAt(position).body != "null"
+                    visible: (_messages.elementAt(position).body != "null"
                             ? true
                             : false) &&
-                        (_Messages.elementAt(position).is_receive == "1"
+                        (_messages.elementAt(position).is_receive == "1"
                             ? true
                             : false),
                     child: Bubble(
@@ -283,7 +265,7 @@ class _ChatRoomState extends State<ChatRoom> {
                               alignment: Alignment.topLeft,
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
-                                child: Text(_Messages.elementAt(position).body,
+                                child: Text(_messages.elementAt(position).body,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(fontSize: 18)),
                               ),
@@ -295,8 +277,9 @@ class _ChatRoomState extends State<ChatRoom> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                "${_Messages.elementAt(position).created_at}",
-                                  style: TextStyle(fontSize: 10,color: Colors.blueGrey),
+                                  "${_messages.elementAt(position).created_at}",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueGrey),
                                 ),
                               ),
                             )
@@ -304,7 +287,7 @@ class _ChatRoomState extends State<ChatRoom> {
                         )),
                   ),
                   Visibility(
-                    visible: _Messages.elementAt(position).is_audio != "null"
+                    visible: _messages.elementAt(position).is_audio != "null"
                         ? true
                         : false,
                     child: Bubble(
@@ -318,11 +301,11 @@ class _ChatRoomState extends State<ChatRoom> {
                                 padding: EdgeInsets.all(0),
                                 child: new IconButton(
                                     onPressed:
-                                        _Messages.elementAt(position).is_play
+                                    _messages.elementAt(position).is_play
                                             ? () => stop(position)
                                             : () => play(position),
                                     iconSize: 25.0,
-                                    icon: _Messages.elementAt(position).is_play
+                                    icon: _messages.elementAt(position).is_play
                                         ? new Icon(Icons.pause)
                                         : new Icon(Icons.play_arrow),
                                     color: Colors.cyan),
@@ -335,8 +318,9 @@ class _ChatRoomState extends State<ChatRoom> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                  "${_Messages.elementAt(position).created_at}",
-                                  style: TextStyle(fontSize: 10,color: Colors.blueGrey),
+                                  "${_messages.elementAt(position).created_at}",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueGrey),
                                 ),
                               ),
                             )
@@ -432,7 +416,7 @@ class _ChatRoomState extends State<ChatRoom> {
       String is_audio = jsonResponse["data"]['is_audio'].toString();
       String is_receive = jsonResponse["data"]['is_receive'].toString();
       int user_id = jsonResponse["data"]['user_id'];
-      String createdAt=jsonResponse["data"]['created_at'].toString();
+      String createdAt = jsonResponse["data"]['created_at'].toString();
       int conversation_id = jsonResponse["data"]['conversation_id'];
 
       print(is_audio);
@@ -448,12 +432,7 @@ class _ChatRoomState extends State<ChatRoom> {
         is_play: false,
         is_audio: is_audio,
       );
-
-      listm.add(msg);
-
-      _Messages.clear();
-      _Messages.addAll(listm.reversed);
-
+      var temp = await widget.model.getAllChat();
       setState(() {
         _scrollController.animateTo(0.0,
             curve: Curves.easeOut, duration: const Duration(milliseconds: 100));
@@ -468,71 +447,7 @@ class _ChatRoomState extends State<ChatRoom> {
     }
   }
 
-  Future<void> getAllChat() async {
-    print("gettAll list");
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final int userId = sharedPreferences.getInt('userId');
-    var jsonResponse;
-    String Url =
-        'http://68.183.187.228/api/imessage/message_listing?sender_id=$userId';
-
-    http.Response response = await http.get(Url);
-    if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      listm.clear();
-      _Messages.clear();
-      List Messages = jsonResponse["data"] as List;
-      for (int i = 0; i < Messages.length; i++) {
-        int id = Messages[i]['id'];
-        String body = Messages[i]['body'].toString();
-        String is_send = Messages[i]['is_send'].toString();
-        String is_audio = Messages[i]['audio'].toString();
-        String createdAt=Messages[i]['created_at'].toString();
-        String is_receive = Messages[i]['is_receive'].toString();
-        int user_id = Messages[i]['user_id'];
-        int conversation_id = Messages[i]['conversation_id'];
-
-        MessageModel msg = new MessageModel(
-          id: id,
-          body: body,
-          is_send: is_send,
-          is_receive: is_receive,
-          user_id: user_id,
-          conversation_id: conversation_id,
-          is_play: false,
-          created_at: createdAt,
-          is_audio: is_audio,
-        );
-
-
-        listm.add(msg);
-      }
-
-      print(listm.length);
-
-//
-//      if (!mounted) return;
-      setState(() {
-        _Messages.addAll(listm.reversed);
-        _isLoading = false;
-//        _scrollController.animateTo(0.0,
-//            curve: Curves.easeOut, duration: const Duration(milliseconds: 300));
-      });
-    } else {
-      jsonResponse = json.decode(response.body);
-      var success = jsonResponse["success"];
-      print(jsonResponse);
-      print(success);
-      print(response.body);
-
-      if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-      });
-      showToast(jsonResponse["message"], duration: 4, gravity: Toast.BOTTOM);
-    }
-  }
 
   void showToast(String msg, {int duration, int gravity}) {
     Toast.show(

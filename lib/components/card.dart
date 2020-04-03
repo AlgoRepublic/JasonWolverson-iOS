@@ -48,7 +48,7 @@ class _CardHolderState extends State<CardHolder> {
       'url': '/seeMe',
     },
     {
-      "name": "HEAL",
+      "name": "HEAL BUSINESS \n SOLUTIONS",
       "picture": "images/heal.png",
       'url': '/heal',
     },
@@ -124,7 +124,9 @@ class Single_cat extends StatelessWidget {
                     Padding(padding: new EdgeInsets.all(3.0)),
                     new Text(
                       cat_name,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
+                        
                           color: hexToColor('#3A3171'),
                           fontSize: 14.0,
                           fontFamily: 'opensans',
