@@ -6,13 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'main.dart';
-class ChatModel extends Model{
 
-
+class ChatModel extends Model {
   List<MessageModel> messagesList = [];
-
-
-
 
   void updateToken(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -41,7 +37,6 @@ class ChatModel extends Model{
       print(response.body);
     }
   }
-
 
   Future<void> getAllChat() async {
     print("gettAll list");
@@ -86,7 +81,6 @@ class ChatModel extends Model{
       }
       messagesList = tempMessagesList.reversed.toList();
       notifyListeners();
-
 
 //
 // //      if (!mounted) return;

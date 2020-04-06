@@ -186,7 +186,14 @@ class _AuthRegisterState extends State<AuthRegister> {
     double c_width = MediaQuery.of(context).size.width * 0.95;
 
     //
-    DropdownButton _showPopupMenu() => DropdownButton<String>(
+    DropdownButtonFormField _showPopupMenu() => DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+          ),
           items: [
             DropdownMenuItem<String>(
               value: "1",
@@ -201,7 +208,7 @@ class _AuthRegisterState extends State<AuthRegister> {
               ),
             ),
             DropdownMenuItem<String>(
-              value: "2",
+              value: "3",
               child: Text(
                 "Other",
               ),
@@ -219,7 +226,7 @@ class _AuthRegisterState extends State<AuthRegister> {
           isDense: true,
           elevation: 2,
           hint: Text(
-            "Please select the Gender!",
+            "Please select the Gender",
             style: TextStyle(
                 color: hexToColor("#3A3171"),
                 fontFamily: 'opensans',
@@ -627,7 +634,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                     ),
                                                   ),
                                                 ),
-                                                margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                                margin: EdgeInsets.only(
+                                                    top: 15.0,
+                                                    left: 10.0,
+                                                    right: 10.0),
                                                 height: 40.0,
                                                 width: 80.0,
                                                 child: InkWell(
@@ -656,7 +666,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                     borderRadius: BorderRadius
                                                         .all(const Radius
                                                             .circular(5.0))),
-                                                margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                                margin: EdgeInsets.only(
+                                                    top: 15.0,
+                                                    left: 10.0,
+                                                    right: 10.0),
                                                 height: 40.0,
                                                 width: 80.0,
                                                 child: InkWell(
@@ -770,7 +783,8 @@ class _AuthRegisterState extends State<AuthRegister> {
                                 Container(
                                   height: 55,
                                   width: c_width,
-                                  padding: EdgeInsets.all(10),
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
                                   decoration: new BoxDecoration(
                                     color: hexToColor("#ffffff"),
                                     borderRadius: BorderRadius.circular(5.0),
@@ -852,7 +866,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   ),
                                                 ),
                                               ),
-                                              margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                              margin: EdgeInsets.only(
+                                                  top: 15.0,
+                                                  left: 10.0,
+                                                  right: 10.0),
                                               height: 40.0,
                                               width: 80.0,
                                               child: InkWell(
@@ -881,7 +898,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       BorderRadius.all(
                                                           const Radius.circular(
                                                               5.0))),
-                                              margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                              margin: EdgeInsets.only(
+                                                  top: 15.0,
+                                                  left: 10.0,
+                                                  right: 10.0),
                                               height: 40.0,
                                               width: 80.0,
                                               child: InkWell(
@@ -1022,7 +1042,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   ),
                                                 ),
                                               ),
-                                              margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                              margin: EdgeInsets.only(
+                                                  top: 15.0,
+                                                  left: 10.0,
+                                                  right: 10.0),
                                               height: 40.0,
                                               width: 80.0,
                                               child: InkWell(
@@ -1051,7 +1074,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       BorderRadius.all(
                                                           const Radius.circular(
                                                               5.0))),
-                                              margin: EdgeInsets.only(top:15.0, left:10.0, right: 10.0),
+                                              margin: EdgeInsets.only(
+                                                  top: 15.0,
+                                                  left: 10.0,
+                                                  right: 10.0),
                                               height: 40.0,
                                               width: 80.0,
                                               child: InkWell(

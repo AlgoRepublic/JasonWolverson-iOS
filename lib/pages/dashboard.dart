@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:jasonw/components/card.dart';
 import 'package:jasonw/scoped_models/main.dart';
 
@@ -23,7 +22,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final notifications = FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -32,14 +30,7 @@ class _DashboardState extends State<Dashboard> {
     widget.model.autoAuthenticate();
 
     new FirebaseNotifications(widget.model).setUpFirebase();
-    final settingsAndroid = AndroidInitializationSettings('app_icon');
-    final settingsIOS = IOSInitializationSettings(
-        onDidReceiveLocalNotification: (id, title, body, payload) =>
-            onSelectNotification(payload));
-
-    notifications.initialize(
-        InitializationSettings(settingsAndroid, settingsIOS),
-        onSelectNotification: onSelectNotification);
+    
     widget.model.getAllChat();
   }
 

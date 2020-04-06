@@ -24,7 +24,7 @@ class ChatRoom extends StatefulWidget {
 
 class _ChatRoomState extends State<ChatRoom> {
   TextEditingController _textFieldController = TextEditingController();
-  List<MessageModel> _messages =[];
+  List<MessageModel> _messages = [];
   ScrollController _scrollController = new ScrollController();
   bool _isLoading = true;
   AudioPlayer audioPlayer;
@@ -59,7 +59,6 @@ class _ChatRoomState extends State<ChatRoom> {
     timer = Timer.periodic(Duration(seconds: 3), (Timer t) => fetchData());
   }
 
-
   @override
   void dispose() {
     print('dispose');
@@ -71,11 +70,14 @@ class _ChatRoomState extends State<ChatRoom> {
     timer?.cancel();
     super.dispose();
   }
+
   void fetchData() async {
+    widget.model.getAllChat();
     _messages = widget.model.messagesList;
-      setState(() {
-      });
-    }
+    print("test messages");
+    setState(() {});
+  }
+
   void initAudioPlayer() {
     audioPlayer = new AudioPlayer();
     _positionSubscription = audioPlayer.onAudioPositionChanged
@@ -301,7 +303,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                 padding: EdgeInsets.all(0),
                                 child: new IconButton(
                                     onPressed:
-                                    _messages.elementAt(position).is_play
+                                        _messages.elementAt(position).is_play
                                             ? () => stop(position)
                                             : () => play(position),
                                     iconSize: 25.0,
@@ -446,8 +448,6 @@ class _ChatRoomState extends State<ChatRoom> {
       showToast("Please try again", duration: 4, gravity: Toast.CENTER);
     }
   }
-
-
 
   void showToast(String msg, {int duration, int gravity}) {
     Toast.show(
