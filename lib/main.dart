@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   final MainModel _model = MainModel();
 
   @override
-  void iniState() {
+  void initState() {
     print('hi');
 
     _model.autoAuthenticate();
@@ -64,7 +64,9 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/': (BuildContext context) => ScopedModelDescendant(
                 builder: (BuildContext context, Widget child, MainModel model) {
-                  return model.user == null ? SplashScreen() : Dashboard(_model);
+                  return model.user == null
+                      ? SplashScreen()
+                      : Dashboard(_model);
                 },
               ),
           '/Auth': (BuildContext context) => Auth(),
@@ -77,7 +79,8 @@ class _MyAppState extends State<MyApp> {
           '/journal': (BuildContext context) => Journal(_model),
           '/about': (BuildContext context) => About(),
           '/seeMe': (BuildContext context) => SeeMe(),
-          '/reflect_admin': (BuildContext context) => ReflectGoalsAdminPage(_model),
+          '/reflect_admin': (BuildContext context) =>
+              ReflectGoalsAdminPage(_model),
           '/journal_admin': (BuildContext context) => JournalAdmin(_model),
           '/journal_list': (BuildContext context) => JournalList(_model),
           '/heal': (BuildContext context) => Heal(),

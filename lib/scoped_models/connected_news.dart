@@ -476,15 +476,11 @@ mixin UserTasksModel on ConnectedNewsModel {
   }
 
   Future<Null> getWeeklyrogress() async {
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('token');
     return http.get(
       'http://68.183.187.228/api/reports/weekly',
-      headers: {
-        'Auth-Token': token,
-        'Content-Type': 'application/json'
-      },
+      headers: {'Auth-Token': token, 'Content-Type': 'application/json'},
     ).then((http.Response reponse) {
       print("weekly progress");
       print(reponse.body);
@@ -1022,15 +1018,14 @@ mixin EventModel on ConnectedNewsModel {
       newsListData.forEach((String newsId, dynamic newsData) {
         print('newsssssss');
         final Events events = Events(
-          id: newsId,
-          eventId: newsData['id'],
-          title: newsData['title'],
-          description: newsData['description'],
-          scheduled_date: newsData['scheduled_date'],
-          upcoming: newsData['upcoming'],
-          price: newsData['price'].toString(),
-          status: newsData['status'].toString()
-        );
+            id: newsId,
+            eventId: newsData['id'],
+            title: newsData['title'],
+            description: newsData['description'],
+            scheduled_date: newsData['scheduled_date'],
+            upcoming: newsData['upcoming'],
+            price: newsData['price'].toString(),
+            status: newsData['status'].toString());
         print(events.description);
         fetchEventList.add(events);
       });
@@ -1048,7 +1043,7 @@ mixin EventModel on ConnectedNewsModel {
 }
 
 mixin ReflectModel on ConnectedNewsModel {
-  bool isApiHit=false;
+  bool isApiHit = false;
   List<Reflect> get allReflects {
     return List.from(_reflects);
   }
@@ -1096,7 +1091,7 @@ mixin ReflectModel on ConnectedNewsModel {
           await http.post('http://68.183.187.228/api/reflects',
               headers: {
                 'Content-Type': 'application/json',
-                'Auth-Token':token,
+                'Auth-Token': token,
               },
               body: json.encode(ReflectData));
 
@@ -1221,7 +1216,7 @@ mixin ReflectModel on ConnectedNewsModel {
       if (response.body.isNotEmpty) {
         print("print");
         _isLoading = false;
-        this.isApiHit=true;
+        this.isApiHit = true;
         notifyListeners();
         return;
       }
@@ -1241,12 +1236,12 @@ mixin ReflectModel on ConnectedNewsModel {
       });
       _reflects = fetchedReflectList;
       _isLoading = false;
-      this.isApiHit=true;
+      this.isApiHit = true;
       notifyListeners();
       _selReflectId = null;
     }).catchError((error) {
       _isLoading = false;
-      this.isApiHit=true;
+      this.isApiHit = true;
       notifyListeners();
       return;
     });

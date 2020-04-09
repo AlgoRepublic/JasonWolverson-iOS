@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:jasonw/components/card.dart';
 import 'package:jasonw/scoped_models/main.dart';
 
@@ -22,7 +23,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
+  FlutterLocalNotificationsPlugin notifications =
+      FlutterLocalNotificationsPlugin();
   @override
   void initState() {
     super.initState();
@@ -30,7 +32,14 @@ class _DashboardState extends State<Dashboard> {
     widget.model.autoAuthenticate();
 
     new FirebaseNotifications(widget.model).setUpFirebase();
-    
+    final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
     widget.model.getAllChat();
   }
 
@@ -39,33 +48,7 @@ class _DashboardState extends State<Dashboard> {
         MaterialPageRoute(builder: (context) => ChatRoom(widget.model)),
       );
 
-  // updateFCM_Token(String FCM_token) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final int userId = prefs.getInt('userId');
-  //   print("userId= $userId");
-  //   final Map<String, dynamic> data = {
-  //     'user_id': userId.toString(),
-  //     'fcm_token': FCM_token,
-  //   };
-  //   var jsonResponse;
-  //   http.Response response = await http.post(
-  //     "http://68.183.187.228/api/users/update_fcm_token",
-  //     body: data,
-  //   );
-  //   if (response.statusCode == 200) {
-  //     jsonResponse = json.decode(response.body);
-  //     var success = jsonResponse["success"];
-  //     print(jsonResponse);
-  //     print(success);
-  //     print(response.body);
-  //   } else {
-  //     jsonResponse = json.decode(response.body);
-  //     var success = jsonResponse["success"];
-  //     print(jsonResponse);
-  //     print(success);
-  //     print(response.body);
-  //   }
-  // }
+  
 
   @override
   Widget build(BuildContext context) {
