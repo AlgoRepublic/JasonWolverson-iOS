@@ -56,6 +56,11 @@ class _CardHolderState extends State<CardHolder> {
       "name": "PRODUCT",
       "picture": "images/product_icon.png",
       'url': '/products',
+    },
+    {
+      "name": "Clearing \n Requests",
+      "picture": "images/broom.png",
+      'url': '/clearingrequest',
     }
   ];
 
@@ -119,14 +124,13 @@ class Single_cat extends StatelessWidget {
                       cat_picture,
                       width: 50,
                       height: 50,
-                          color: hexToColor('#3A3171'),
+                      color: hexToColor('#3A3171'),
                     )),
                     Padding(padding: new EdgeInsets.all(3.0)),
                     new Text(
                       cat_name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        
                           color: hexToColor('#3A3171'),
                           fontSize: 14.0,
                           fontFamily: 'opensans',
