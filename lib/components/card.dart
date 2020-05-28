@@ -66,13 +66,13 @@ class _CardHolderState extends State<CardHolder> {
       "name": "PRODUCT",
       "picture": "images/product_icon.png",
       'url': '/products',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/reflections.mp4'
+      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/products.mp4'
     },
     {
       "name": "Clearing \n Requests",
       "picture": "images/broom.png",
       'url': '/clearingrequest',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/heal.mp4'
+      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/clearing.mp4'
     }
 
   ];
