@@ -67,7 +67,14 @@ class _CardHolderState extends State<CardHolder> {
       "picture": "images/product_icon.png",
       'url': '/products',
       'video': 'https://jasonwolverson.algorepublic.com/videos/Video/reflections.mp4'
+    },
+    {
+      "name": "Clearing \n Requests",
+      "picture": "images/broom.png",
+      'url': '/clearingrequest',
+      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/heal.mp4'
     }
+
   ];
 
   @override
