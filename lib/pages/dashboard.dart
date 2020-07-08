@@ -12,6 +12,11 @@ import 'package:toast/toast.dart';
 
 import 'ChatRoom.dart';
 import 'firebase_config.dart';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+
 
 class Dashboard extends StatefulWidget {
   final model;
@@ -25,6 +30,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   FlutterLocalNotificationsPlugin notifications =
       FlutterLocalNotificationsPlugin();
+  PurchaserInfo _purchaserInfo;
+  Offerings _offerings;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +49,23 @@ class _DashboardState extends State<Dashboard> {
         InitializationSettings(settingsAndroid, settingsIOS),
         onSelectNotification: onSelectNotification);
     widget.model.getAllChat();
+  }
+
+  Future<void> initPlatformState() async {
+    await Purchases.setDebugLogsEnabled(true);
+    await Purchases.setup("DExegcfoiAtRKVYrXGWnkbthKdunHWDr");
+    await Purchases.addAttributionData({}, PurchasesAttributionNetwork.facebook);
+    PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
+    Offerings offerings = await Purchases.getOfferings();
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _purchaserInfo = purchaserInfo;
+      _offerings = offerings;
+    });
   }
 
   Future onSelectNotification(String payload) async => await Navigator.push(
@@ -79,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
                 onPressed: () {})
           ],
         ),
-        body: new Stack(
+        body: new Stack (
           children: <Widget>[
             Container(
               padding: new EdgeInsets.all(15),
