@@ -24,6 +24,7 @@ class _InspirationsState extends State<Inspirations> {
   @override
   void initState() {
     // TODO: implement initState
+    print('fsfsfsdfsdfsdd');
     super.initState();
     widget.model.fetchInspirations();
 //    widget.model.fetchInspirationComments();
@@ -63,152 +64,10 @@ class _InspirationsState extends State<Inspirations> {
             shrinkWrap: true,
             itemCount: model.allInspiratios.length,
             itemBuilder: (BuildContext ctxt, int Index) {
+
               if (model.allInspiratios[Index].file_content_type ==
-                      'image/jpeg' ||
-                  model.allInspiratios[Index].file_content_type ==
-                      'image/png') {
-                return Card(
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color.fromARGB(255, 255, 255, 255),
-//                  shape: Bo
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                  margin: EdgeInsets.fromLTRB(15.0, 25.0, 15.0, 0.0),
-                  elevation: 5,
-                  child: Container(
-//                  height: 60,
-//                padding: EdgeInsets.only(bottom: 10.0),
-//                  width: 260,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                model.allInspiratios[Index].title.toUpperCase(),
-                                style: TextStyle(
-                                    color: hexToColor('#3A3171'),
-                                    fontSize: 15.0,
-                                    fontFamily: 'opensans',
-                                    fontWeight: FontWeight.w600),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ],
-//
-                        ),
-                        Container(
-                            child: Image.network('http://68.183.187.228/' +
-                                model.allInspiratios[Index].file)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            PopupMenuButton(itemBuilder: (context) {
-                              var list = List<PopupMenuEntry<Object>>();
-                              list.add(
-                                PopupMenuItem(
-                                  child: Text("Like"),
-                                  value: 'Like',
-                                ),
-                              );
-
-                              list.add(
-                                PopupMenuItem(
-                                  child: Text("Dislike"),
-                                  value: 'Dislike',
-                                ),
-                              );
-
-                              //                              list.add(
-                              //                                PopupMenuDivider(
-                              //                                  height: 10,
-                              //                                ),
-                              //                              );
-
-                              return list;
-                            }, onSelected: (value) {
-                              print("value:$value");
-
-                              //                              _submitForm(
-                              //                                  model.updateUserTasks,
-                              //                                  model.selectUserTask,
-                              //                                  model.selectedTaskIndex,
-                              //                              );
-                              model.selectInspiration(
-                                  model.allInspiratios[Index].inspirationID);
-                              model.selectedInspirationsIndex;
-                              model.updateInspiration(value);
-                              model.fetchInspirations();
-                            }),
-
-                            IconButton(
-                              icon: Icon(model.allInspiratios[Index].isliked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border),
-                              color: Colors.red,
-                              onPressed: () {
-//                                model.selectProduct(model.allProducts[productIndex].id);
-//                                model.toggleProductFavoriteStatus();
-                              },
-                            ),
-
-                            Text('Likes ${model.allInspiratios[Index].likes}'),
-
-//                            IconButton(
-//
-//                                icon: Icon(Icons.thumb_up),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.updateInspiration();
-//                                  model.fetchInspirations();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
-//                            IconButton(icon: Icon(Icons.thumb_down),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.unlikeInspiration();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
-                            FlatButton(
-                              color: hexToColor('#ffffff'),
-//                              child: Text('Add Comment' , style:TextStyle(color: hexToColor('#ffffff')),),
-                              child: Row(
-                                // Replace with a Row for horizontal icon + text
-                                children: <Widget>[
-                                  Icon(Icons.comment),
-                                  Text("Comments")
-                                ],
-                              ),
-
-                              onPressed: () {
-                                model.selectInspiration(
-                                    model.allInspiratios[Index].inspirationID);
-//                                model.fetchInspirationComments();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CommentPage(
-                                          model.allInspiratios[Index], model)),
-                                );
-                              },
-                            ),
-
-//                            _buildSelectButton(context, Index, model),
-                          ],
-//
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else if (model.allInspiratios[Index].file_content_type ==
-                  'video/mp4') {
+                  'video/mp4' || model.allInspiratios[Index].file_content_type ==
+                  'video/quicktime' ) {
                 return Card(
                   semanticContainer: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -274,52 +133,141 @@ class _InspirationsState extends State<Inspirations> {
                                   value: 'Dislike',
                                 ),
                               );
-
-                              //                              list.add(
-                              //                                PopupMenuDivider(
-                              //                                  height: 10,
-                              //                                ),
-                              //                              );
-
                               return list;
                             }, onSelected: (value) {
                               print("value:$value");
 
-                              //                              _submitForm(
-                              //                                  model.updateUserTasks,
-                              //                                  model.selectUserTask,
-                              //                                  model.selectedTaskIndex,
-                              //                              );
                               model.fetchInspirations();
                               model.selectInspiration(
                                   model.allInspiratios[Index].inspirationID);
                               model.selectedInspirationsIndex;
                               model.updateInspiration(value);
                             }),
+
+                            IconButton(
+                              icon: Icon(model.allInspiratios[Index].isliked
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              color: Colors.red,
+                              onPressed: () {
+//                                model.selectProduct(model.allProducts[productIndex].id);
+//                                model.toggleProductFavoriteStatus();
+                              },
+                            ),
+
                             Text('Likes ${model.allInspiratios[Index].likes}'),
 
-//                            IconButton(
-//
-//                                icon: Icon(Icons.thumb_up),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.updateInspiration();
-//                                  model.fetchInspirations();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
-//                            IconButton(icon: Icon(Icons.thumb_down),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.unlikeInspiration();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
                             FlatButton(
                               color: hexToColor('#ffffff'),
-//                              child: Text('Add Comment' , style:TextStyle(color: hexToColor('#ffffff')),),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.comment),
+                                  Text("Comments")
+                                ],
+                              ),
+
+                              onPressed: () {
+                                model.selectInspiration(
+                                    model.allInspiratios[Index].inspirationID);
+//                                model.fetchInspirationComments();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CommentPage(
+                                          model.allInspiratios[Index], model)),
+                                );
+                              },
+                            ),
+
+                          ],
+//
+                        ),
+
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+                return Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color.fromARGB(255, 255, 255, 255),
+//                  shape: Bo
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  margin: EdgeInsets.fromLTRB(15.0, 25.0, 15.0, 0.0),
+                  elevation: 5,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                model.allInspiratios[Index].title.toUpperCase(),
+                                style: TextStyle(
+                                    color: hexToColor('#3A3171'),
+                                    fontSize: 15.0,
+                                    fontFamily: 'opensans',
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+//
+                        ),
+                        Container(
+                            child: Image.network('http://68.183.187.228/'+
+                                model.allInspiratios[Index].file)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            PopupMenuButton(itemBuilder: (context) {
+                              var list = List<PopupMenuEntry<Object>>();
+                              list.add(
+                                PopupMenuItem(
+                                  child: Text("Like"),
+                                  value: 'Like',
+                                ),
+                              );
+
+                              list.add(
+                                PopupMenuItem(
+                                  child: Text("Dislike"),
+                                  value: 'Dislike',
+                                ),
+                              );
+
+                              return list;
+                            }, onSelected: (value) {
+                              print("value:$value");
+
+
+                              model.selectInspiration(
+                                  model.allInspiratios[Index].inspirationID);
+                              model.selectedInspirationsIndex;
+                              model.updateInspiration(value);
+                              model.fetchInspirations();
+                            }),
+
+                            IconButton(
+                              icon: Icon(model.allInspiratios[Index].isliked
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              color: Colors.red,
+                              onPressed: () {
+//                                model.selectProduct(model.allProducts[productIndex].id);
+//                                model.toggleProductFavoriteStatus();
+                              },
+                            ),
+
+                            Text('Likes ${model.allInspiratios[Index].likes}'),
+
+
+                            FlatButton(
+                              color: hexToColor('#ffffff'),
                               child: Row(
                                 // Replace with a Row for horizontal icon + text
                                 children: <Widget>[
@@ -345,28 +293,11 @@ class _InspirationsState extends State<Inspirations> {
                           ],
 //
                         ),
-//                        Row(
-//                          children: <Widget>[
-//                            Padding(
-//                                padding: EdgeInsets.all(10.0),
-//                                child: IconButton(icon: Icon(Icons.thumb_up),
-//                                    onPressed: (){
-////                                    model.selectDailyPlan('${model.alluserTasks[Index].id}');
-////                                    model.updateUserTasks();
-////                                    print();
-//
-//
-//                                    }
-//                                )
-//                            ),
-//                          ],
-////
-//                        ),
                       ],
                     ),
                   ),
                 );
-              }
+
             });
       },
     );
@@ -416,41 +347,7 @@ class _InspirationsState extends State<Inspirations> {
             child: _buildInspirationList(),
           ),
 
-//            new Container(
-////                        width: 50,
-////                        height: 40,
-////                      opacity:0.0,
-//                decoration: new BoxDecoration(color: hexToColor("#3A3171") ,
-////                        image: DecorationImage(
-////                          image: ExactAssetImage('images/dots.png'),
-////                          fit: BoxFit.cover,
-////                        ),
-//                  border: Border(bottom: BorderSide(color: hexToColor('#3A3171') ,)),
-//
-//                ),
-//                padding: EdgeInsets.fromLTRB(30,5,0,5),
-//                margin: EdgeInsets.only(top: 20.0),
-//                child:Row(
-//                  children: <Widget>[
-//                    Expanded(
-//                        child: Container(
-//                          color: hexToColor('#3A3171'),
-////                              textColor: Colors.white,
-////                              elevation: 0.0,
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Expanded(child:  new Text('20-August-2019' , style: TextStyle(color: Colors.white, fontSize:12.0,fontFamily: 'opensans'),)),
-//                              Spacer(),
-//                              Expanded(child: new Icon(Icons.calendar_today, color: Colors.white, size:14.0 ),)
-//                            ],
-//                          ),
-//                        )),
-//
-//                  ],
-//                )
-//
-//            ),
+
         ],
       ),
       bottomNavigationBar: BottomAppBar(
