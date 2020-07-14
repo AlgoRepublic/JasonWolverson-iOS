@@ -709,8 +709,11 @@ mixin InspirationModel on ConnectedNewsModel {
         fetchInspirations.add(inspiration);
       });
       _inspirations = fetchInspirations;
-//      print('newsssssss');
-//      print(_inspirations);
+      print('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+      print(_inspirations[0].title);
+      print(_inspirations[0].file_content_type);
+      print(_inspirations[0].file);
+      print(_inspirations[1].file_content_type);
       _isLoading = false;
       notifyListeners();
     }).catchError((error) {

@@ -54,8 +54,8 @@ class _InspirationsState extends State<Inspirations> {
         if (model.allInspiratios.length == 0) {
           return Container(
               child: Center(
-            child: CircularProgressIndicator(),
-          ));
+                child: CircularProgressIndicator(),
+              ));
         }
 
         return ListView.builder(
@@ -63,7 +63,7 @@ class _InspirationsState extends State<Inspirations> {
             itemCount: model.allInspiratios.length,
             itemBuilder: (BuildContext ctxt, int Index) {
               if (model.allInspiratios[Index].file_content_type ==
-                      'image/jpeg' ||
+                  'image/jpeg' ||
                   model.allInspiratios[Index].file_content_type ==
                       'image/png') {
                 return Card(
@@ -407,7 +407,7 @@ class _InspirationsState extends State<Inspirations> {
         ),
         actions: <Widget>[
           new IconButton(
-            icon: Icon(Icons.home),
+              icon: Icon(Icons.home),
               // icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/dashboard');
