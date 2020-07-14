@@ -1,5 +1,6 @@
-import 'package:custom_chewie/custom_chewie.dart';
+//import 'package:custom_chewie/custom_chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:chewie/chewie.dart';
 import 'package:jasonw/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,9 +29,7 @@ class _InspirationsState extends State<Inspirations> {
     widget.model.fetchInspirations();
 //    widget.model.fetchInspirationComments();
     setState(() {
-      _controller = new VideoPlayerController.network(
-        '',
-      );
+      _controller = new VideoPlayerController.network(null);
       //Your state change code goes here
     });
     if (!mounted) return;
@@ -208,7 +207,7 @@ class _InspirationsState extends State<Inspirations> {
                   ),
                 );
               } else if (model.allInspiratios[Index].file_content_type ==
-                  'video/mp4') {
+                  'video/quicktime') {
                 return Card(
                   semanticContainer: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -245,16 +244,26 @@ class _InspirationsState extends State<Inspirations> {
 //                        Container(
 //                            child: File.network('http://68.183.187.228/'+ model.allInspiratios[Index].file)
 //                        )
-
-                        new Chewie(
-                          _controller = new VideoPlayerController.network(
-                              'https://jasonwolverson.algorepublic.com/' +
-                                  model.allInspiratios[Index].file),
-                          aspectRatio: 3 / 2,
-                          autoInitialize: true,
-                          autoPlay: false,
-                          looping: false,
-                        ),
+                        Chewie(
+                          controller: ChewieController(
+                            videoPlayerController: new VideoPlayerController
+                                .network(
+                                'https://jasonwolverson.algorepublic.com/' +
+                                    model.allInspiratios[Index].file),
+                            aspectRatio: 3 / 2,
+                            autoPlay: false,
+                            looping: false,
+                            autoInitialize: true,
+                          ),),
+//                        new Chewie(
+//                          _controller = new VideoPlayerController.network(
+//                              'https://jasonwolverson.algorepublic.com/' +
+//                                  model.allInspiratios[Index].file),
+//                          aspectRatio: 3 / 2,
+//                          autoInitialize: true,
+//                          autoPlay: false,
+//                          looping: false,
+//                        ),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -367,6 +376,7 @@ class _InspirationsState extends State<Inspirations> {
                   ),
                 );
               }
+              return null;
             });
       },
     );

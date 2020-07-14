@@ -16,12 +16,6 @@
 @import firebase_messaging;
 #endif
 
-#if __has_include(<flutter_android_pip/FlutterAndroidPipPlugin.h>)
-#import <flutter_android_pip/FlutterAndroidPipPlugin.h>
-#else
-@import flutter_android_pip;
-#endif
-
 #if __has_include(<flutter_local_notifications/FlutterLocalNotificationsPlugin.h>)
 #import <flutter_local_notifications/FlutterLocalNotificationsPlugin.h>
 #else
@@ -46,6 +40,12 @@
 @import path_provider;
 #endif
 
+#if __has_include(<purchases_flutter/PurchasesFlutterPlugin.h>)
+#import <purchases_flutter/PurchasesFlutterPlugin.h>
+#else
+@import purchases_flutter;
+#endif
+
 #if __has_include(<shared_preferences/FLTSharedPreferencesPlugin.h>)
 #import <shared_preferences/FLTSharedPreferencesPlugin.h>
 #else
@@ -58,10 +58,16 @@
 @import sqflite;
 #endif
 
-#if __has_include(<video_player/VideoPlayerPlugin.h>)
-#import <video_player/VideoPlayerPlugin.h>
+#if __has_include(<video_player/FLTVideoPlayerPlugin.h>)
+#import <video_player/FLTVideoPlayerPlugin.h>
 #else
 @import video_player;
+#endif
+
+#if __has_include(<wakelock/WakelockPlugin.h>)
+#import <wakelock/WakelockPlugin.h>
+#else
+@import wakelock;
 #endif
 
 #if __has_include(<webview_flutter/FLTWebViewFlutterPlugin.h>)
@@ -81,14 +87,15 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [AudioplayersPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersPlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
-  [FlutterAndroidPipPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterAndroidPipPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [InAppPurchasePlugin registerWithRegistrar:[registry registrarForPlugin:@"InAppPurchasePlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [PurchasesFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"PurchasesFlutterPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
+  [WakelockPlugin registerWithRegistrar:[registry registrarForPlugin:@"WakelockPlugin"]];
   [FLTWebViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTWebViewFlutterPlugin"]];
   [ZendeskPlugin registerWithRegistrar:[registry registrarForPlugin:@"ZendeskPlugin"]];
 }
