@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     print("firebase");
     widget.model.autoAuthenticate();
-
+    initPlatformState();
     new FirebaseNotifications(widget.model).setUpFirebase();
     final settingsAndroid = AndroidInitializationSettings('app_icon');
     final settingsIOS = IOSInitializationSettings(
@@ -104,14 +104,16 @@ class _DashboardState extends State<Dashboard> {
                 onPressed: () {})
           ],
         ),
-        body: new Stack (
+        body:
+        Stack (
           children: <Widget>[
             Container(
               padding: new EdgeInsets.all(15),
               child: CardHolder(),
             )
           ],
-        ));
+        )
+    );
   }
 
   void showToast(String msg, {int duration, int gravity}) {

@@ -1,3 +1,4 @@
+
 //import 'dart:convert';
 //import 'dart:async';
 import 'dart:ffi';
@@ -55,19 +56,19 @@ class _AuthRegisterState extends State<AuthRegister> {
   bool _validatepassword = false;
   bool _validaterepassword = false;
   Widget _buildDropdownItem(Country country) => Container(
-        child: Row(
-          children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
-              width: 8.0,
-            ),
-            Text(
-              "${country.isoCode}",
-              style: TextStyle(color: hexToColor('#3A3171')),
-            ),
-          ],
+    child: Row(
+      children: <Widget>[
+        CountryPickerUtils.getDefaultFlagImage(country),
+        SizedBox(
+          width: 8.0,
         ),
-      );
+        Text(
+          "${country.isoCode}",
+          style: TextStyle(color: hexToColor('#3A3171')),
+        ),
+      ],
+    ),
+  );
 
   Widget _buildEmailTextField() {
     return TextFormField(
@@ -187,52 +188,52 @@ class _AuthRegisterState extends State<AuthRegister> {
 
     //
     DropdownButtonFormField _showPopupMenu() => DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.white,
-              ),
-            ),
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
           ),
-          items: [
-            DropdownMenuItem<String>(
-              value: "1",
-              child: Text(
-                "Male",
-              ),
-            ),
-            DropdownMenuItem<String>(
-              value: "2",
-              child: Text(
-                "Female",
-              ),
-            ),
-            DropdownMenuItem<String>(
-              value: "3",
-              child: Text(
-                "Other",
-              ),
-            ),
-          ],
-          onChanged: (value) {
-            print("value:$value");
-            //        print(_ShowUserInfo());
+        ),
+      ),
+      items: [
+        DropdownMenuItem<String>(
+          value: "1",
+          child: Text(
+            "Male",
+          ),
+        ),
+        DropdownMenuItem<String>(
+          value: "2",
+          child: Text(
+            "Female",
+          ),
+        ),
+        DropdownMenuItem<String>(
+          value: "3",
+          child: Text(
+            "Other",
+          ),
+        ),
+      ],
+      onChanged: (value) {
+        print("value:$value");
+        //        print(_ShowUserInfo());
 
-            setState(() {
-              _formData['gender'] = value;
-            });
-          },
-          value: _formData['gender'],
-          isDense: true,
-          elevation: 2,
-          hint: Text(
-            "Please select the Gender",
-            style: TextStyle(
-                color: hexToColor("#3A3171"),
-                fontFamily: 'opensans',
-                fontSize: 15.0),
-          ),
-        );
+        setState(() {
+          _formData['gender'] = value;
+        });
+      },
+      value: _formData['gender'],
+      isDense: true,
+      elevation: 2,
+      hint: Text(
+        "Please select the Gender",
+        style: TextStyle(
+            color: hexToColor("#3A3171"),
+            fontFamily: 'opensans',
+            fontSize: 15.0),
+      ),
+    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -353,7 +354,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                 color: hexToColor("#3A3171"),
                                 fontFamily: 'opensans'),
                             errorText:
-                                _validatepassword ? 'Password Invalid ' : null,
+                            _validatepassword ? 'Password Invalid ' : null,
                             //                            hintText: 'Password',
                             //                            hintStyle: new st,
                             hasFloatingPlaceholder: true,
@@ -367,7 +368,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                             border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(4.0),
                                 borderSide:
-                                    new BorderSide(color: Colors.blue[700]))),
+                                new BorderSide(color: Colors.blue[700]))),
                         onChanged: (value) {
                           if (value.isEmpty || value.length < 6) {
                             setState(() {
@@ -427,7 +428,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                             border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(4.0),
                                 borderSide:
-                                    new BorderSide(color: Colors.blue[700]))),
+                                new BorderSide(color: Colors.blue[700]))),
                         onChanged: (value) {
                           if (_passwordTextController.text != value) {
                             setState(() {
@@ -480,7 +481,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                             border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(4.0),
                                 borderSide:
-                                    new BorderSide(color: Colors.blue[700]))),
+                                new BorderSide(color: Colors.blue[700]))),
                         validator: (val) {
                           if (val.length == 0) {
                             return "Cellphone Field Cannot be empty";
@@ -515,17 +516,17 @@ class _AuthRegisterState extends State<AuthRegister> {
                                 cancelStyle: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ), onChanged: (date) {
-                            print('change $date in time zone ' +
-                                date.timeZoneOffset.inHours.toString());
-                          }, onConfirm: (date) {
-                            print('confirm $date');
-                            _formData['date_of_birth'] = date.toString();
-                            date2 = date;
-                            print(DateFormat('yyyy-MM-dd').format(date2));
-                            _dobTextCOntroller.text =
-                                DateFormat('yyyy-MM-dd').format(date2);
-                            setState(() {});
-                          },
+                                print('change $date in time zone ' +
+                                    date.timeZoneOffset.inHours.toString());
+                              }, onConfirm: (date) {
+                                print('confirm $date');
+                                _formData['date_of_birth'] = date.toString();
+                                date2 = date;
+                                print(DateFormat('yyyy-MM-dd').format(date2));
+                                _dobTextCOntroller.text =
+                                    DateFormat('yyyy-MM-dd').format(date2);
+                                setState(() {});
+                              },
                               currentTime: DateTime.now(),
                               locale: LocaleType.en);
                         },
@@ -551,7 +552,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                 fillColor: Colors.white,
                                 border: new OutlineInputBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(4.0),
+                                    new BorderRadius.circular(4.0),
                                     borderSide: new BorderSide(
                                         color: Colors.blue[700]))),
                             style: new TextStyle(
@@ -563,7 +564,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                       ),
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       GestureDetector(
-                          // When the child is tapped, show a snackbar.
+                        // When the child is tapped, show a snackbar.
                           onTap: () {
                             print("tapped");
                             showDialog(
@@ -608,8 +609,8 @@ class _AuthRegisterState extends State<AuthRegister> {
                                             fillColor: Colors.white,
                                             border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      4.0),
+                                              new BorderRadius.circular(
+                                                  4.0),
                                               borderSide: new BorderSide(
                                                 color: Colors.blue[700],
                                               ),
@@ -619,7 +620,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                         Container(
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                             children: <Widget>[
                                               Container(
                                                 decoration: BoxDecoration(
@@ -628,7 +629,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       color: Colors.red,
                                                       width: 1.0),
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                  BorderRadius.all(
                                                     const Radius.circular(
                                                       5.0,
                                                     ),
@@ -651,7 +652,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   onTap: () {
                                                     print("cancel");
                                                     Navigator.of(context,
-                                                            rootNavigator: true)
+                                                        rootNavigator: true)
                                                         .pop('dialog');
                                                   },
                                                 ),
@@ -661,11 +662,11 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                     color: Color(0xFF3A3171),
                                                     border: Border.all(
                                                         color:
-                                                            Color(0xFF3A3171),
+                                                        Color(0xFF3A3171),
                                                         width: 1.0),
                                                     borderRadius: BorderRadius
                                                         .all(const Radius
-                                                            .circular(5.0))),
+                                                        .circular(5.0))),
                                                 margin: EdgeInsets.only(
                                                     top: 15.0,
                                                     left: 10.0,
@@ -685,12 +686,12 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                         _relogionController
                                                             .text;
                                                     _relogionController.text =
-                                                        '';
+                                                    '';
                                                     religion.add(tempText);
                                                     print(religion.length);
                                                     print("add");
                                                     Navigator.of(context,
-                                                            rootNavigator: true)
+                                                        rootNavigator: true)
                                                         .pop('dialog');
                                                     setState(() {});
                                                   },
@@ -718,7 +719,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                 if (religion.isEmpty)
                                   Container(
                                       padding:
-                                          EdgeInsets.only(top: 15.0, left: 5.0),
+                                      EdgeInsets.only(top: 15.0, left: 5.0),
                                       child: Text(
                                         "Religion",
                                         style: TextStyle(
@@ -737,7 +738,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                           setState(() {});
                                         },
                                         materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
+                                        MaterialTapTargetSize.shrinkWrap,
                                       ),
                                     )
                               ],
@@ -784,7 +785,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                   height: 55,
                                   width: c_width,
                                   padding:
-                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  EdgeInsets.only(left: 10.0, right: 10.0),
                                   decoration: new BoxDecoration(
                                     color: hexToColor("#ffffff"),
                                     borderRadius: BorderRadius.circular(5.0),
@@ -842,7 +843,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(4.0),
+                                            new BorderRadius.circular(4.0),
                                             borderSide: new BorderSide(
                                               color: Colors.blue[700],
                                             ),
@@ -852,7 +853,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                       Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Container(
                                               decoration: BoxDecoration(
@@ -883,7 +884,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                 onTap: () {
                                                   print("cancel");
                                                   Navigator.of(context,
-                                                          rootNavigator: true)
+                                                      rootNavigator: true)
                                                       .pop('dialog');
                                                 },
                                               ),
@@ -895,9 +896,9 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       color: Color(0xFF3A3171),
                                                       width: 1.0),
                                                   borderRadius:
-                                                      BorderRadius.all(
-                                                          const Radius.circular(
-                                                              5.0))),
+                                                  BorderRadius.all(
+                                                      const Radius.circular(
+                                                          5.0))),
                                               margin: EdgeInsets.only(
                                                   top: 15.0,
                                                   left: 10.0,
@@ -917,12 +918,12 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       _professionController
                                                           .text;
                                                   _professionController.text =
-                                                      '';
+                                                  '';
                                                   profession.add(tempText);
                                                   print(profession.length);
                                                   print("add");
                                                   Navigator.of(context,
-                                                          rootNavigator: true)
+                                                      rootNavigator: true)
                                                       .pop('dialog');
                                                   setState(() {});
                                                 },
@@ -944,13 +945,13 @@ class _AuthRegisterState extends State<AuthRegister> {
                               border: Border.all(
                                   color: hexToColor("#3A3171"), width: 1.0),
                               borderRadius:
-                                  BorderRadius.all(const Radius.circular(5.0))),
+                              BorderRadius.all(const Radius.circular(5.0))),
                           child: Wrap(
                             children: <Widget>[
                               if (profession.isEmpty)
                                 Container(
                                     padding:
-                                        EdgeInsets.only(top: 15.0, left: 5.0),
+                                    EdgeInsets.only(top: 15.0, left: 5.0),
                                     child: Text(
                                       "Profession",
                                       style: TextStyle(
@@ -969,7 +970,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                         setState(() {});
                                       },
                                       materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      MaterialTapTargetSize.shrinkWrap,
                                     ),
                                   )
                             ],
@@ -1018,7 +1019,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(4.0),
+                                            new BorderRadius.circular(4.0),
                                             borderSide: new BorderSide(
                                               color: Colors.blue[700],
                                             ),
@@ -1028,7 +1029,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                       Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Container(
                                               decoration: BoxDecoration(
@@ -1059,7 +1060,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                 onTap: () {
                                                   print("cancel");
                                                   Navigator.of(context,
-                                                          rootNavigator: true)
+                                                      rootNavigator: true)
                                                       .pop('dialog');
                                                 },
                                               ),
@@ -1071,9 +1072,9 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                       color: Color(0xFF3A3171),
                                                       width: 1.0),
                                                   borderRadius:
-                                                      BorderRadius.all(
-                                                          const Radius.circular(
-                                                              5.0))),
+                                                  BorderRadius.all(
+                                                      const Radius.circular(
+                                                          5.0))),
                                               margin: EdgeInsets.only(
                                                   top: 15.0,
                                                   left: 10.0,
@@ -1096,7 +1097,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   print(interest.length);
                                                   print("add");
                                                   Navigator.of(context,
-                                                          rootNavigator: true)
+                                                      rootNavigator: true)
                                                       .pop('dialog');
                                                   setState(() {});
                                                 },
@@ -1118,13 +1119,13 @@ class _AuthRegisterState extends State<AuthRegister> {
                               border: Border.all(
                                   color: hexToColor("#3A3171"), width: 1.0),
                               borderRadius:
-                                  BorderRadius.all(const Radius.circular(5.0))),
+                              BorderRadius.all(const Radius.circular(5.0))),
                           child: Wrap(
                             children: <Widget>[
                               if (interest.isEmpty)
                                 Container(
                                     padding:
-                                        EdgeInsets.only(top: 15.0, left: 5.0),
+                                    EdgeInsets.only(top: 15.0, left: 5.0),
                                     child: Text(
                                       "Interests",
                                       style: TextStyle(
@@ -1143,7 +1144,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                         setState(() {});
                                       },
                                       materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      MaterialTapTargetSize.shrinkWrap,
                                     ),
                                   )
                             ],
@@ -1222,7 +1223,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                       style: TextStyle(
                                           color: hexToColor("#3A3171"),
                                           decoration:
-                                              TextDecoration.underline)),
+                                          TextDecoration.underline)),
                                 ],
                               ),
                               textAlign: TextAlign.center,
