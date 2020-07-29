@@ -27,18 +27,9 @@ class _SplashScreenState extends State<SplashScreen> {
     startTime();
   }
   Widget _navigationPage() {
-    print('hi');
-
-//    Navigator.of(context).pushReplacementNamed('/Auth');
-//    return  ScopedModelDescendant(
-//      builder: (BuildContext context, Widget child , MainModel model){
-//        print('hi');
         if (model.user == null) {
-
           Navigator.of(context).pushReplacementNamed('/Auth');
         } else {
-          print('ye hai ');
-          print(model.user.email);
           Navigator.of(context).pushReplacementNamed('/Dashboard');
         }
 //

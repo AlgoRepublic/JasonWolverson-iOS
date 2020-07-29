@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:http/http.dart';
 import 'package:jasonw/models/UserTasks.dart';
 import 'package:jasonw/models/comments.dart';
 import 'package:jasonw/models/dailyPlans.dart';
@@ -39,6 +40,7 @@ mixin ConnectedNewsModel on Model {
 //  User _user;
   String _selectDate;
   int _selectDailyPlan;
+  List<LikeObject> likeList = [];
 }
 
 mixin JournalModel on ConnectedNewsModel {
@@ -252,7 +254,6 @@ mixin JournalModel on ConnectedNewsModel {
 //      print(journTitle);
 
       journalListData.forEach((String journalId, dynamic journalData) {
-        print('newsssssss');
         final Journal journal = Journal(
           journalID: journalId,
           id: journalData['id'],
@@ -335,7 +336,6 @@ mixin JournalModel on ConnectedNewsModel {
 //      print(journTitle);
 
       journalListData.forEach((String journalId, dynamic journalData) {
-        print('newsssssss');
         final Journal journal = Journal(
           journalID: journalId,
           id: journalData['id'],
@@ -626,6 +626,10 @@ mixin InspirationModel on ConnectedNewsModel {
     return List.from(_inspirations);
   }
 
+  List<LikeObject> get allLikeObjects {
+    return List.from(likeList);
+  }
+
   int get selectedInspirationsIndex {
     return _inspirations.indexWhere((Inspiration inspiration) {
       return inspiration.inspirationID == _selInspirationId;
@@ -647,14 +651,10 @@ mixin InspirationModel on ConnectedNewsModel {
   }
 
   Future<Null> fetchInspirations() async {
-//    print(_authenticatedUser.token);
     _isLoading = true;
     notifyListeners();
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('token');
-//    print(token);
-
     if (token != null) {
       final String userEmail = prefs.getString('userEmail');
       final String userGender = prefs.getString('userGender');
@@ -667,8 +667,6 @@ mixin InspirationModel on ConnectedNewsModel {
           date_of_birth: userDob);
       print(userEmail);
       print(token);
-      print(userGender);
-      print(userDob);
     }
 
     return http.get(
@@ -676,9 +674,9 @@ mixin InspirationModel on ConnectedNewsModel {
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
 //        print(response.body);
-
+      print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
       final List<Inspiration> fetchInspirations = [];
-
+      print(response);
       final Map<String, dynamic> inspirationsListData =
           jsonDecode(response.body);
       print(inspirationsListData);
@@ -691,7 +689,6 @@ mixin InspirationModel on ConnectedNewsModel {
 
       inspirationsListData
           .forEach((String inspirationId, dynamic inspirationData) {
-        print('newsssssss');
         final Inspiration inspiration = Inspiration(
           inspirationID: inspirationId,
           title: inspirationData['title'],
@@ -710,10 +707,10 @@ mixin InspirationModel on ConnectedNewsModel {
       });
       _inspirations = fetchInspirations;
       print('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
-      print(_inspirations[0].title);
-      print(_inspirations[0].file_content_type);
-      print(_inspirations[0].file);
-      print(_inspirations[1].file_content_type);
+      for (int i = 0; i <= _inspirations.length; i++) {
+        likeList.add(LikeObject(flag: _inspirations[i].isliked ? true : false));
+      }
+
       _isLoading = false;
       notifyListeners();
     }).catchError((error) {
@@ -723,34 +720,28 @@ mixin InspirationModel on ConnectedNewsModel {
     });
   }
 
-  Future<bool> updateInspiration(String status) {
-    print(selectedInspirations.inspirationID);
-    _isLoading = true;
+  Future<bool> updateInspiration(String status, int id) {
     notifyListeners();
+    print("in apiiiiiiiiiiiii");
     final Map<String, dynamic> LikeData = {'status': status};
     return http
-        .post(
-            'http://68.183.187.228/api/inspirations/${selectedInspirations.id}/likes',
+        .post('http://68.183.187.228/api/inspirations/$id/likes',
             headers: {
               'Content-Type': 'application/json',
               'Auth-Token': _authenticatedUser.token,
             },
             body: json.encode(LikeData))
         .then((http.Response response) {
+      print("api hiting");
       print(response.body);
       _isLoading = false;
-
-      final Inspiration likeInspirantions = Inspiration(
-        status: status,
-        id: selectedInspirations.id,
-        title: selectedInspirations.title,
-        inspirationID: selectedInspirations.inspirationID,
-      );
-
-      _inspirations.add(likeInspirantions);
-
-      print(likeInspirantions.status);
-
+//      final Inspiration likeInspirantions = Inspiration(
+//        status: status,
+//        id: selectedInspirations.id,
+//        title: selectedInspirations.title,
+//        inspirationID: selectedInspirations.inspirationID,
+//      );
+//      _inspirations.add(likeInspirantions);
       notifyListeners();
       return true;
     }).catchError((error) {
@@ -843,7 +834,6 @@ mixin InspirationModel on ConnectedNewsModel {
 
       inspirationsCommentListData
           .forEach((String commentId, dynamic commentData) {
-        print('newsssssss');
         final Comment comment = Comment(
           commentID: commentId,
           description: commentData['description'],
@@ -852,7 +842,6 @@ mixin InspirationModel on ConnectedNewsModel {
         fetchInspirationsComments.add(comment);
       });
       _comments = fetchInspirationsComments;
-      print('newsssssss');
       print(_comments);
       _isLoading = false;
       notifyListeners();
@@ -862,6 +851,34 @@ mixin InspirationModel on ConnectedNewsModel {
       return;
     });
   }
+
+//  Future<Map<String, dynamic>> checkSubscription() async {
+//    final SharedPreferences prefs = await SharedPreferences.getInstance();
+//    final String token = prefs.get('token');
+//    notifyListeners();
+//    Response response;
+//    try {
+//      final response = await http.get(
+//        'http://68.183.187.228/api/subscription_status',
+//        headers: {'Auth-Token': _authenticatedUser.token},
+//      );
+//      final Map<String, dynamic> responseData = json.decode(response.body);
+//      final Map<String, dynamic> finalData = responseData['user'];
+//      print("respoceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+//      print(finalData['subscription_status']);
+//      print(response.statusCode);
+//      if (response.statusCode == 200) {
+//        return {'success': "true"};
+//      } else
+//        print("server Error");
+//      return {'data': 'server error'};
+//    } catch (e) {
+//      print(e);
+//      notifyListeners();
+//      print('helo error');
+//      return {'success': false};
+//    }
+//  }
 
   Future<bool> unlikeInspiration() {
     _isLoading = true;
@@ -904,10 +921,7 @@ mixin InspirationModel on ConnectedNewsModel {
   }
 
   void selectInspiration(String inspirationId) {
-    print('hisadasdasd');
     _selInspirationId = inspirationId;
-    print('hi');
-    print(_selInspirationId);
     notifyListeners();
   }
 }
@@ -948,7 +962,6 @@ mixin NewsModel on ConnectedNewsModel {
       }
 
       newsListData.forEach((String newsId, dynamic newsData) {
-        print('newsssssss');
         final News news = News(
           id: newsId,
           title: newsData['title'],
@@ -958,7 +971,6 @@ mixin NewsModel on ConnectedNewsModel {
         fetchNewList.add(news);
       });
       _news = fetchNewList;
-      print('newsssssss');
       print(_news);
       _isLoading = false;
       notifyListeners();
@@ -1019,7 +1031,6 @@ mixin EventModel on ConnectedNewsModel {
       print('working');
 
       newsListData.forEach((String newsId, dynamic newsData) {
-        print('newsssssss');
         final Events events = Events(
             id: newsId,
             eventId: newsData['id'],
@@ -1033,7 +1044,6 @@ mixin EventModel on ConnectedNewsModel {
         fetchEventList.add(events);
       });
       _events = fetchEventList;
-      print('newsssssss');
       print(_events);
       _isLoading = false;
       notifyListeners();
@@ -1047,6 +1057,7 @@ mixin EventModel on ConnectedNewsModel {
 
 mixin ReflectModel on ConnectedNewsModel {
   bool isApiHit = false;
+
   List<Reflect> get allReflects {
     return List.from(_reflects);
   }

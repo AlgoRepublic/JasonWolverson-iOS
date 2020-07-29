@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Inspiration {
-  final String inspirationID;
-  final int id;
-  final String title;
-  final String file;
-  final String file_content_type;
-  final int likes;
-  final String status;
-  final bool isliked;
-  final bool isdisliked;
+  String inspirationID;
+  int id;
+  String title;
+  String file;
+  String file_content_type;
+  int likes;
+  String status;
+  bool isliked;
+  bool isdisliked;
 //  final String
 
   Inspiration({
