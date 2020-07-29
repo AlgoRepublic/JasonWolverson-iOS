@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
     currentUrl = 'https://jasonwolverson.algorepublic.com/payfast/subscription?email=${widget.model.user.email}&date=$date';
 //    currentUrl = "https://www.google.com.pk";
     super.initState();
-//    checkSubscription();
+    checkSubscription();
 
 //    _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
 //      if (mounted) {
@@ -88,17 +88,17 @@ class _DashboardState extends State<Dashboard> {
 //    );
   }
 
-//  void checkSubscription ()async{
-//    var  result = await  widget.model.checkSubscription();
-//    print(result);
-//    print("in dashboardddddddddddddddddddddddddddddddddd");
-//    print(result);
-////       if(result['subscription_status'] == 'active'){
-////         setState(() {
-////           subscribe = true;
-////         });
-////       }
-//  }
+  void checkSubscription ()async{
+    var  result = await  widget.model.checkSubscription();
+    print(result);
+    print("in dashboardddddddddddddddddddddddddddddddddd");
+    print(result);
+       if(result['success'] == true){
+         setState(() {
+           subscribe = true;
+         });
+       }
+  }
 
   Future<void> initPlatformState() async {
     await Purchases.setDebugLogsEnabled(true);
@@ -144,6 +144,15 @@ class _DashboardState extends State<Dashboard> {
               initialUrl:
               currentUrl,
               javascriptMode: JavascriptMode.unrestricted,
+              onPageFinished: (var url){
+                print("URLLL"+url);
+                if (url == "https://jasonwolverson.algorepublic.com/success"){
+                  setState(() {
+                    subscribe = true;
+                  });
+
+                }
+              },
             )
     )
         : Scaffold(

@@ -852,33 +852,36 @@ mixin InspirationModel on ConnectedNewsModel {
     });
   }
 
-//  Future<Map<String, dynamic>> checkSubscription() async {
-//    final SharedPreferences prefs = await SharedPreferences.getInstance();
-//    final String token = prefs.get('token');
-//    notifyListeners();
-//    Response response;
-//    try {
-//      final response = await http.get(
-//        'http://68.183.187.228/api/subscription_status',
-//        headers: {'Auth-Token': _authenticatedUser.token},
-//      );
-//      final Map<String, dynamic> responseData = json.decode(response.body);
-//      final Map<String, dynamic> finalData = responseData['user'];
-//      print("respoceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-//      print(finalData['subscription_status']);
-//      print(response.statusCode);
-//      if (response.statusCode == 200) {
-//        return {'success': "true"};
-//      } else
-//        print("server Error");
-//      return {'data': 'server error'};
-//    } catch (e) {
-//      print(e);
-//      notifyListeners();
-//      print('helo error');
-//      return {'success': false};
-//    }
-//  }
+  Future<Map<String, dynamic>> checkSubscription() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String token = prefs.get('token');
+    notifyListeners();
+    Response response;
+    try {
+      final response = await http.get(
+        'http://68.183.187.228/api/subscription_status',
+        headers: {'Auth-Token': _authenticatedUser.token},
+      );
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final Map<String, dynamic> finalData = responseData['user'];
+      print("respoceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      print(finalData['subscription_status']);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        if(finalData['subscription_status'] == "active")
+          return {'success': "true"};
+        else
+          return {'success' : "false"};
+      } else
+        print("server Error");
+      return {'data': 'server error'};
+    } catch (e) {
+      print(e);
+      notifyListeners();
+      print('helo error');
+      return {'success': false};
+    }
+  }
 
   Future<bool> unlikeInspiration() {
     _isLoading = true;
