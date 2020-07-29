@@ -73,6 +73,12 @@ class _CardHolderState extends State<CardHolder> {
       "picture": "images/broom.png",
       'url': '/clearingrequest',
       'video': 'https://jasonwolverson.algorepublic.com/videos/Video/clearing.mp4'
+    },
+    {
+      "name": "Settings",
+      "picture": "images/settings.png",
+      'url': '/settings',
+      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/clearing.mp4'
     }
 
   ];
@@ -121,7 +127,8 @@ class Single_cat extends StatelessWidget {
 //
 //
 //                print('i');
-              if (Navigator.pushReplacementNamed(context, cat_url) == 'chat') {
+              // ignore: unrelated_type_equality_checks
+              if (Navigator.pushNamed(context, cat_url) == 'chat') {
                 print('this is chat tab ');
               }
               Navigator.pushReplacementNamed(context, cat_url);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jasonw/pages/clearing_request.dart';
 import 'package:jasonw/pages/paymentPage.dart';
+import 'package:jasonw/pages/settings.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 import './pages/auth.dart';
@@ -89,6 +90,7 @@ class _MyAppState extends State<MyApp> {
           '/products': (BuildContext context) => Products(),
           '/paymentPage': (BuildContext context) => PaymentPage(),
           '/clearingrequest': (BuildContext context) => ClearingRequestScreen(),
+          '/settings': (BuildContext context) => SettingsScreen(),
         },
         onGenerateRoute: (RouteSettings settings) {
           final List<String> pathElements = settings.name.split('/');

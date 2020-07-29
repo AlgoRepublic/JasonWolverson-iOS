@@ -11,6 +11,13 @@ class Likes{
     this.inspirationID
   });
 
-
 }
 
+class LikeObject{
+  final bool flag;
+
+  LikeObject({
+    this.flag
+  });
+
+}
