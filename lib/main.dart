@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jasonw/pages/clearing_request.dart';
 import 'package:jasonw/pages/paymentPage.dart';
 import 'package:jasonw/pages/settings.dart';
+import 'package:crypto/crypto.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 import './pages/auth.dart';

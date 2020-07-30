@@ -21,7 +21,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-
 class Dashboard extends StatefulWidget {
   final model;
 
@@ -53,7 +52,8 @@ class _DashboardState extends State<Dashboard> {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
     date = formatted;
-    currentUrl = 'https://jasonwolverson.algorepublic.com/payfast/subscription?email=${widget.model.user.email}&date=$date';
+    currentUrl =
+        'https://jasonwolverson.algorepublic.com/payfast/subscription?email=${widget.model.user.email}&date=$date';
 //    currentUrl = "https://www.google.com.pk";
     super.initState();
     checkSubscription();
@@ -88,16 +88,25 @@ class _DashboardState extends State<Dashboard> {
 //    );
   }
 
-  void checkSubscription ()async{
-    var  result = await  widget.model.checkSubscription();
+  void checkSubscription() async {
+    setState(() {
+      _isLoading = true;
+    });
+    var result = await widget.model.checkSubscription();
     print(result);
     print("in dashboardddddddddddddddddddddddddddddddddd");
     print(result);
-       if(result['success'] == true){
-         setState(() {
-           subscribe = true;
-         });
-       }
+    print(widget.model.user.token);
+    if (result['success'] == 'true') {
+      setState(() {
+        subscribe = true;
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> initPlatformState() async {
@@ -137,46 +146,49 @@ class _DashboardState extends State<Dashboard> {
 
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-    return !subscribe
+    return _isLoading
         ? Scaffold(
-            body:
-            WebView(
-              initialUrl:
-              currentUrl,
-              javascriptMode: JavascriptMode.unrestricted,
-              onPageFinished: (var url){
-                print("URLLL"+url);
-                if (url == "https://jasonwolverson.algorepublic.com/success"){
-                  setState(() {
-                    subscribe = true;
-                  });
-
-                }
-              },
-            )
-    )
-        : Scaffold(
-//      backgroundColor: hexToColor('#f4f5f8'),
-            appBar: new AppBar(
-              backgroundColor: hexToColor("#3A3171"),
-              centerTitle: true,
-              elevation: 0.0,
-              title: new Text(
-                'Smash Life',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'opensans',
-                    fontSize: 16.0),
-              ),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
-            body: Stack(
-              children: <Widget>[
-                Container(
-                  padding: new EdgeInsets.all(15),
-                  child: CardHolder(),
-                )
-              ],
-            ));
+          )
+        : !subscribe
+            ? Scaffold(
+                body: WebView(
+                initialUrl: currentUrl,
+                javascriptMode: JavascriptMode.unrestricted,
+                onPageFinished: (var url) {
+                  print("URLLL" + url);
+                  if (url ==
+                      "https://jasonwolverson.algorepublic.com/success") {
+                    setState(() {
+                      subscribe = true;
+                    });
+                  }
+                },
+              ))
+            : Scaffold(
+//      backgroundColor: hexToColor('#f4f5f8'),
+                appBar: new AppBar(
+                  backgroundColor: hexToColor("#3A3171"),
+                  centerTitle: true,
+                  elevation: 0.0,
+                  title: new Text(
+                    'Smash Life',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'opensans',
+                        fontSize: 16.0),
+                  ),
+                ),
+                body: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: new EdgeInsets.all(15),
+                      child: CardHolder(),
+                    )
+                  ],
+                ));
   }
 
   void showToast(String msg, {int duration, int gravity}) {

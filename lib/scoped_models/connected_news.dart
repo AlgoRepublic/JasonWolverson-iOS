@@ -868,10 +868,66 @@ mixin InspirationModel on ConnectedNewsModel {
       print(finalData['subscription_status']);
       print(response.statusCode);
       if (response.statusCode == 200) {
-        if(finalData['subscription_status'] == "active")
+        if (finalData['subscription_status'] == "active")
           return {'success': "true"};
         else
-          return {'success' : "false"};
+          return {'success': "false"};
+      } else
+        print("server Error");
+      return {'data': 'server error'};
+    } catch (e) {
+      print(e);
+      notifyListeners();
+      print('helo error');
+      return {'success': false};
+    }
+  }
+
+  Future<Map<String, dynamic>> cancelSubscription() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String token = prefs.get('token');
+    notifyListeners();
+    Response response;
+    try {
+      final response = await http.get(
+        'https://jasonwolverson.algorepublic.com/api/subscription_cancel_url',
+        headers: {'Auth-Token': _authenticatedUser.token},
+      );
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final Map<String, dynamic> finalData = responseData['data'];
+      if (response.statusCode == 200) {
+        var result = await finalcancelSubscription(finalData);
+        return {'success': true,'data': result};
+//        else
+//          return {'success' : "false"};
+      } else
+        print("server Error");
+      return {'success':false,'data': 'null'};
+    } catch (e) {
+      print(e);
+      notifyListeners();
+      print('helo error');
+      return {'success': false, 'data':'null'};
+    }
+  }
+
+  Future<Map<String, dynamic>> finalcancelSubscription(
+      var cancelSubscriptionData) async {
+    Map<String, String> headers = {
+      "merchant-id": cancelSubscriptionData['merchant-id'].toString(),
+      "version": cancelSubscriptionData['version'],
+      "timestamp": cancelSubscriptionData['timestamp'],
+      "signature": cancelSubscriptionData['signature']
+    };
+    try {
+      http.Response response = await http.put(
+        cancelSubscriptionData['url'].toString(),
+        headers: headers,
+      );
+      final Map<String, dynamic> responseData = json.decode(response.body);
+//      final Map<String, dynamic> finalData = responseData['user'];
+      if (response.statusCode == 200) {
+        return responseData;
       } else
         print("server Error");
       return {'data': 'server error'};
