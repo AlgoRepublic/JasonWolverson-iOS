@@ -40,7 +40,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           );
         });
   }
-   _showDialogue() {
+
+  _showDialogue() {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -63,7 +64,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'Cancel Subscription',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            content: Text('Are you sure you want to cancel subscription?'),
+            content:
+            Text('Are you sure you want to cancel subscription?'),
             actions: <Widget>[
               FlatButton(
                 child: Text('NO'),
@@ -77,25 +79,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Text('YES'),
                   onPressed: () async {
                     setState(() {
-                      _isLoading =true;
+                      _isLoading = true;
                     });
-                    Navigator.of(context).pop(true);
                     var results = await model.cancelSubscription();
                     print("in settings page");
                     print(results);
                     setState(() {
                       _isLoading = false;
                     });
-                    if(results['success']){
-                      if(results['data']['status'] == 'success'){
-                        model.logout();
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/Auth', (Route<dynamic> route) => false);
-                      }
-                      else
+                    if (results['success']) {
+                      if (results['data']['status'] == 'success') {
+                        Navigator.of(context).pop(true);
+//                        model.logout();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/dashboard', (Route<dynamic> route) => false);
+                      } else
                         _showDialogue();
-                    }
-                    else
+                    } else
                       _showDialogue();
                   },
                 );
@@ -104,7 +104,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           );
         });
   }
+
   bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,10 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Card(
               elevation: 1,
-              child: ScopedModelDescendant(
-                  builder: (BuildContext context, Widget child, MainModel model) {
-                    return
-                Column(
+              child: ScopedModelDescendant(builder:
+                  (BuildContext context, Widget child, MainModel model) {
+                return Column(
                   children: [
                     GestureDetector(
                       child: ListTile(
@@ -165,7 +166,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               }),
             ),
           ),
-          _isLoading ? Center(child: CircularProgressIndicator(),):Container()
+          _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container()
         ],
       ),
     );

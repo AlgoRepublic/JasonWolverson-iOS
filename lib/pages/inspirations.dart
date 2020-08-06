@@ -265,50 +265,57 @@ class _InspirationsState extends State<Inspirations> {
 //                              model.selectedInspirationsIndex;
 //                              model.updateInspiration(value);
 //                            }),
-              IconButton(
-//
-              icon: Icon(Icons.thumb_up),
-              onPressed: () {
-                setState(() async {
-                  model.allInspiratios[Index].isliked =
-                  !model.allInspiratios[Index].isliked;
-                  model.allInspiratios[Index].isliked ? model
-                      .allInspiratios[Index].likes++ : model
-                      .allInspiratios[Index].likes--;
-                  await model.updateInspiration(
-                      model.allInspiratios[Index].isliked
-                          ? "Like"
-                          : "Dislike",
-                      model.allInspiratios[Index].id).then((
-                      value) async {
-                    if (value) {
-                      await model.fetchInspirations();
-                    }
-                  }
-                  );
-                });
-              }),
+                IconButton(
+                  icon: Icon(
+                      model.allInspiratios[Index].isliked ? Icons
+                          .favorite : Icons.favorite_border),
+                  color: Colors.red,
+                  onPressed: () {
+                    setState(() async {
+                      model.allInspiratios[Index].isliked =
+                      !model.allInspiratios[Index].isliked;
+                      model.allInspiratios[Index].isliked ? model
+                          .allInspiratios[Index].likes++ : model
+                          .allInspiratios[Index].likes--;
+                      await model.updateInspiration(
+                          model.allInspiratios[Index].isliked
+                              ? "Like"
+                              : "Dislike",
+                          model.allInspiratios[Index].id).then((
+                          value) async {
+                        if (value) {
+                          await model.fetchInspirations();
+                        }
+                      }
+                      );
+                    });
+                  },
+                ),
+//              IconButton(
+////
+//              icon: Icon(Icons.thumb_up),
+//              onPressed: () {
+//                setState(() async {
+//                  model.allInspiratios[Index].isliked =
+//                  !model.allInspiratios[Index].isliked;
+//                  model.allInspiratios[Index].isliked ? model
+//                      .allInspiratios[Index].likes++ : model
+//                      .allInspiratios[Index].likes--;
+//                  await model.updateInspiration(
+//                      model.allInspiratios[Index].isliked
+//                          ? "Like"
+//                          : "Dislike",
+//                      model.allInspiratios[Index].id).then((
+//                      value) async {
+//                    if (value) {
+//                      await model.fetchInspirations();
+//                    }
+//                  }
+//                  );
+//                });
+//              }),
               Text('Likes ${model.allInspiratios[Index].likes}'),
 
-//                            IconButton(
-//
-//                                icon: Icon(Icons.thumb_up),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.updateInspiration();
-//                                  model.fetchInspirations();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
-//                            IconButton(icon: Icon(Icons.thumb_down),
-//                                onPressed: (){
-//                                  model.selectInspiration(model.allInspiratios[Index].inspirationID);
-//                                  model.selectedInspirationsIndex;
-//                                  model.unlikeInspiration();
-//                                }
-//                            ),
-//                            Text('${model.allInspiratios[Index].likes}'),
               FlatButton(
               color: hexToColor('#ffffff'),
 //                              child: Text('Add Comment' , style:TextStyle(color: hexToColor('#ffffff')),),
