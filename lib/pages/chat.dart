@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:zendesk/zendesk.dart';
+//import 'package:zendesk/zendesk.dart';
 
 const ZendeskAccountKey = 'RdBLm5TXAvIEoe8No20HpkHT03JzhhQM';
 
@@ -13,7 +13,7 @@ class MyAppChat extends StatefulWidget {
 
 class _MyAppChatState extends State<MyAppChat> {
 //  String _platformVersion = 'Unknown';
-  final Zendesk zendesk = Zendesk();
+//  final Zendesk zendesk = Zendesk();
 
   @override
   void initState() {
@@ -38,11 +38,11 @@ class _MyAppChatState extends State<MyAppChat> {
 //  }
 
   void startChat() async {
-    zendesk.startChat().then((r) {
-      print('startChat finished');
-    }).catchError((e) {
-      print('error $e');
-    });
+//    zendesk.startChat().then((r) {
+//      print('startChat finished');
+//    }).catchError((e) {
+//      print('error $e');
+//    });
   }
 
   @override
@@ -83,14 +83,14 @@ class _MyAppChatState extends State<MyAppChat> {
               RaisedButton(
                 child: Text('Set User Info' , style: TextStyle(color: Colors.white),),
                 onPressed: () async {
-                  zendesk.setVisitorInfo(
-                    name: 'My Name',
-                    phoneNumber: '323-555-1212',
-                  ).then((r) {
-                    print('setVisitorInfo finished');
-                  }).catchError((e) {
-                    print('error $e');
-                  });
+//                  zendesk.setVisitorInfo(
+//                    name: 'My Name',
+//                    phoneNumber: '323-555-1212',
+//                  ).then((r) {
+//                    print('setVisitorInfo finished');
+//                  }).catchError((e) {
+//                    print('error $e');
+//                  });
                 },
               ),
               RaisedButton(
