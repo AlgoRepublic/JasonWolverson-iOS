@@ -43,6 +43,8 @@ class _ProductsState extends State<Products> {
       "m9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllb"
       "nQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZ"
       "GJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=";
+  String productQuantity;
+  bool flag = false;
 
   payNow() async {
 //    BraintreePayment braintreePayment = new BraintreePayment();
@@ -95,13 +97,15 @@ class _ProductsState extends State<Products> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacementNamed(
-              context, '/dashboard'), // POPPING globalContext
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/dashboard');
+          }, // POPPING globalContext
         ),
         actions: <Widget>[
           new IconButton(
               icon: new Image.asset('images/JASON-LOGO-FINAL-4.png'),
               onPressed: () {
+//               _showDialogue(context, 12);
                 Navigator.pushReplacementNamed(context, '/dashboard');
               })
         ],
@@ -155,13 +159,87 @@ class _ProductsState extends State<Products> {
                 ),
               ),
               onTap: () {
-                getPaymentUrl(position);
-//                showAlertDialog(context, position);
+                _showDialogue(context, position);
+//                getPaymentUrl(position);
               },
             );
           },
         ),
       ),
+    );
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Future<void> _showDialogue(BuildContext context, int position) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(
+                "Enter Quantity of Products",
+                style: TextStyle(fontSize: 16),
+              ),
+              content: Form(
+                key: _formKey,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        borderSide: BorderSide(
+                            width: 1, color: Theme.of(context).backgroundColor),
+                      ),
+                      border: OutlineInputBorder(borderSide: BorderSide()),
+                      labelText: 'Quantity',
+                      hintText: '',
+                      labelStyle: TextStyle(fontSize: 18),
+                      filled: true,
+                      fillColor: Colors.white),
+                  keyboardType: TextInputType.number,
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      // ignore: missing_return, missing_return
+                      return 'Please enter a valid number';
+                    }
+                  },
+                  onSaved: (String value) {
+                    print(value);
+                    setState(() {
+                      productQuantity = value;
+                    });
+
+//                _phoneNumber = _phoneNumber+value;
+//                print(_phoneNumber);
+                  },
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                    child: const Text('CANCEL'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                new FlatButton(
+                    child: const Text('Done'),
+                    onPressed: () {
+                      if (!_formKey.currentState.validate()) {
+                        return;
+                      }
+                      _formKey.currentState.save();
+                      if (productQuantity != null) {
+                        getPaymentUrl(position);
+                        Navigator.pop(context);
+                      }
+//                    Navigator.pop(context);
+                    })
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
@@ -212,7 +290,8 @@ class _ProductsState extends State<Products> {
                 ),
                 Expanded(
                   child: Container(
-                    child: Text("\ZAR ${_productList.elementAt(position).price}",
+                    child: Text(
+                        "\ZAR ${_productList.elementAt(position).price}",
                         style: TextStyle(fontFamily: 'opensans')),
                   ),
                 ),
@@ -233,7 +312,8 @@ class _ProductsState extends State<Products> {
           child: Text("Pay".toUpperCase()),
           onPressed: () {
             setState(() {
-              getPaymentUrl(position);
+//              getPaymentUrl(position);
+              _showDialogue(context, position);
             });
 
             Navigator.of(context).pop();
@@ -346,14 +426,16 @@ class _ProductsState extends State<Products> {
   }
 
   getPaymentUrl(int position) async {
+    print("getPaymentUrlllllllllllllllllllllllllllllllllll");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token = sharedPreferences.getString("token");
     String email = sharedPreferences.getString("userEmail");
     String name = "farhat";
+    String quantity = productQuantity;
     print(token);
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&product_id=${_productList.elementAt(position).id}";
+        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&product_id=${_productList.elementAt(position).id}&product_qty=$quantity";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,
@@ -372,7 +454,7 @@ class _ProductsState extends State<Products> {
         context,
         MaterialPageRoute(
             builder: (context) => PaymentPage(
-                url: url, productId: _productList.elementAt(position).id)),
+                url: url, productId: _productList.elementAt(position).id,productQuantity: productQuantity,)),
       );
       //   Navigator.pushReplacementNamed(context, '/paymentPage');
       //   }
