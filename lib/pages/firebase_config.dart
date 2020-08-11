@@ -21,6 +21,22 @@ class FirebaseNotifications {
     print("firebase message 2");
   }
 
+  Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+
+    print ("background::::$message");
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+    }
+
+    // Or do other work.
+  }
+
   void firebaseCloudMessaging_Listeners() {
     if (Platform.isIOS) iOS_Permission();
     _firebaseMessaging.getToken().then((token) {
@@ -43,9 +59,10 @@ class FirebaseNotifications {
         print(message);
         print("Hmza2");
       },
-      /* onBackgroundMessage: (Map<String, dynamic> message) async {
-        print('on background message $message');
-      },*/
+//      onBackgroundMessage: (Map<String, dynamic> message) async {
+////        showMessage(message);
+//        print('on background message $message');
+//      },
     );
 
     _firebaseMessaging
@@ -61,6 +78,7 @@ class FirebaseNotifications {
   }
 
   Future<void> showMessage(Map<String, dynamic> message) async {
+    print("background::$message");
     showOngoingNotification(notifications,
         title: message['notification']['title'],
         body: message['notification']['body']);
@@ -81,6 +99,7 @@ class FirebaseNotifications {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final int userId = prefs.getInt('userId');
     print("userId= $userId");
+    print("token::$token");
     final Map<String, dynamic> data = {
       'user_id': userId.toString(),
       'fcm_token': token,

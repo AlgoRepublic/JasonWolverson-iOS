@@ -59,7 +59,7 @@ class _SeeMeState extends State<SeeMe> {
                 key: _key,
                 javascriptMode: JavascriptMode.unrestricted,
                 userAgent: "a",
-                initialUrl: "https://calendly.com/jason-wolverson/15min",
+                initialUrl: "https://calendly.com/jason-wolverson/60min",
                 onPageFinished: (String url) {
                   print('Page finished loading: $url');
                   setState(() {
