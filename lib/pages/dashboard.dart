@@ -45,9 +45,11 @@ class _DashboardState extends State<Dashboard> {
 //  final flutterWebviewPlugin = new FlutterWebviewPlugin();
   bool subscribe = false;
   String currentUrl = '';
+  bool _isLoadingPage;
 
   @override
   void initState() {
+    _isLoadingPage = true;
     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
@@ -154,19 +156,32 @@ class _DashboardState extends State<Dashboard> {
           )
         : !subscribe
             ? Scaffold(
-                body: WebView(
-                initialUrl: currentUrl,
-                javascriptMode: JavascriptMode.unrestricted,
-                onPageFinished: (var url) {
-                  print("URLLL" + url);
-                  if (url ==
-                      "https://jasonwolverson.algorepublic.com/success") {
+                body: Stack(children: [WebView(
+                  initialUrl: currentUrl,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onPageFinished: (var url) {
                     setState(() {
-                      subscribe = true;
+                      _isLoadingPage = false;
                     });
-                  }
-                },
-              ))
+                    print("URLLL" + url);
+                    if (url ==
+                        "https://jasonwolverson.algorepublic.com/success") {
+                      setState(() {
+                        subscribe = true;
+                      });
+                    }
+                  },
+              ),
+                  _isLoadingPage
+                    ? Container(
+                  alignment: FractionalOffset.center,
+                  child: CircularProgressIndicator(),
+                )
+                    : Container(
+                  color: Colors.transparent,
+                ),
+                ],
+                ),)
             : Scaffold(
 //      backgroundColor: hexToColor('#f4f5f8'),
                 appBar: new AppBar(

@@ -76,12 +76,6 @@
 @import webview_flutter;
 #endif
 
-#if __has_include(<zendesk/ZendeskPlugin.h>)
-#import <zendesk/ZendeskPlugin.h>
-#else
-@import zendesk;
-#endif
-
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
@@ -97,7 +91,6 @@
   [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
   [WakelockPlugin registerWithRegistrar:[registry registrarForPlugin:@"WakelockPlugin"]];
   [FLTWebViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTWebViewFlutterPlugin"]];
-  [ZendeskPlugin registerWithRegistrar:[registry registrarForPlugin:@"ZendeskPlugin"]];
 }
 
 @end

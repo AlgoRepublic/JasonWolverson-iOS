@@ -17,8 +17,9 @@ class PaymentPage extends StatefulWidget {
   final url;
   final eventId;
   final productId;
+  final productQuantity;
 
-  const PaymentPage({Key key, this.url, this.eventId, this.productId})
+  const PaymentPage({Key key, this.url, this.eventId, this.productId,this.productQuantity})
       : super(key: key);
 
   @override
@@ -181,7 +182,7 @@ class _PaymentPageState extends State<PaymentPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token = sharedPreferences.getString("token");
     print("product ${widget.productId}  $token");
-    Map data = {'product_id': widget.productId.toString()};
+    Map data = {'product_id': widget.productId.toString(),'product_qty':widget.productQuantity};
     var jsonResponse;
     http.Response response =
         await http.post("http://68.183.187.228/api/order_product",
