@@ -89,10 +89,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     });
                     if (results['success']) {
                       if (results['data']['status'] == 'success') {
+//                        Navigator.of(context).pop(true);
+////                        model.logout();
+//                        Navigator.of(context).pushNamedAndRemoveUntil(
+//                            '/dashboard', (Route<dynamic> route) => false);
+                        model.logout();
                         Navigator.of(context).pop(true);
-//                        model.logout();
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/dashboard', (Route<dynamic> route) => false);
+                            '/Auth', (Route<dynamic> route) => false);
                       } else
                         _showDialogue();
                     } else

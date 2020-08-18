@@ -156,32 +156,34 @@ class _DashboardState extends State<Dashboard> {
           )
         : !subscribe
             ? Scaffold(
-                body: Stack(children: [WebView(
-                  initialUrl: currentUrl,
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onPageFinished: (var url) {
-                    setState(() {
-                      _isLoadingPage = false;
-                    });
-                    print("URLLL" + url);
-                    if (url ==
-                        "https://jasonwolverson.algorepublic.com/success") {
-                      setState(() {
-                        subscribe = true;
-                      });
-                    }
-                  },
-              ),
-                  _isLoadingPage
-                    ? Container(
-                  alignment: FractionalOffset.center,
-                  child: CircularProgressIndicator(),
-                )
-                    : Container(
-                  color: Colors.transparent,
+                body: Stack(
+                  children: [
+                    WebView(
+                      initialUrl: currentUrl,
+                      javascriptMode: JavascriptMode.unrestricted,
+                      onPageFinished: (var url) {
+                        setState(() {
+                          _isLoadingPage = false;
+                        });
+                        if (url ==
+                            "https://jasonwolverson.algorepublic.com/success") {
+                          setState(() {
+                            subscribe = true;
+                          });
+                        }
+                      },
+                    ),
+                    _isLoadingPage
+                        ? Container(
+                            alignment: FractionalOffset.center,
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container(
+                            color: Colors.transparent,
+                          ),
+                  ],
                 ),
-                ],
-                ),)
+              )
             : Scaffold(
 //      backgroundColor: hexToColor('#f4f5f8'),
                 appBar: new AppBar(
