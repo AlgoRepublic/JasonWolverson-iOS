@@ -178,9 +178,7 @@ class _DashboardState extends State<Dashboard> {
                             alignment: FractionalOffset.center,
                             child: CircularProgressIndicator(),
                           )
-                        : Container(
-                            color: Colors.transparent,
-                          ),
+                        : Container()
                   ],
                 ),
               )
