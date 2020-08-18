@@ -3,7 +3,7 @@
 //import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-//import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:jasonw/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:intl/intl.dart';
@@ -498,35 +498,35 @@ class _AuthRegisterState extends State<AuthRegister> {
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       InkWell(
                         onTap: () {
-//                          DatePicker.showDatePicker(context,
-//                              showTitleActions: true,
-//                              minTime: DateTime(1935, 1, 1),
-//                              maxTime: DateTime.now(),
-//                              theme: DatePickerTheme(
-//                                headerColor: hexToColor("#3A3171"),
-//                                backgroundColor: Colors.white,
-//                                itemStyle: TextStyle(
-//                                    color: Colors.black,
-//                                    fontWeight: FontWeight.w500,
-//                                    fontSize: 18),
-//                                doneStyle: TextStyle(
-//                                    color: Colors.white, fontSize: 16),
-//                                cancelStyle: TextStyle(
-//                                    color: Colors.white, fontSize: 16),
-//                              ), onChanged: (date) {
-//                                print('change $date in time zone ' +
-//                                    date.timeZoneOffset.inHours.toString());
-//                              }, onConfirm: (date) {
-//                                print('confirm $date');
-//                                _formData['date_of_birth'] = date.toString();
-//                                date2 = date;
-//                                print(DateFormat('yyyy-MM-dd').format(date2));
-//                                _dobTextCOntroller.text =
-//                                    DateFormat('yyyy-MM-dd').format(date2);
-//                                setState(() {});
-//                              },
-//                              currentTime: DateTime.now(),
-//                              locale: LocaleType.en);
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(1935, 1, 1),
+                              maxTime: DateTime.now(),
+                              theme: DatePickerTheme(
+                                headerColor: hexToColor("#3A3171"),
+                                backgroundColor: Colors.white,
+                                itemStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18),
+                                doneStyle: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                                cancelStyle: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ), onChanged: (date) {
+                                print('change $date in time zone ' +
+                                    date.timeZoneOffset.inHours.toString());
+                              }, onConfirm: (date) {
+                                print('confirm $date');
+                                _formData['date_of_birth'] = date.toString();
+                                date2 = date;
+                                print(DateFormat('yyyy-MM-dd').format(date2));
+                                _dobTextCOntroller.text =
+                                    DateFormat('yyyy-MM-dd').format(date2);
+                                setState(() {});
+                              },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.en);
                         },
                         child: IgnorePointer(
                           child: new TextFormField(
