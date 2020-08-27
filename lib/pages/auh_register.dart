@@ -122,6 +122,7 @@ class _AuthRegisterState extends State<AuthRegister> {
   //  }
 
   void _submitForm(Function login) async {
+    print("in sigggggggggggggggggggggg");
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -171,7 +172,7 @@ class _AuthRegisterState extends State<AuthRegister> {
     super.initState();
     _recognizer1 = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, new MaterialPageRoute(builder: (context) => new Auth()));
       };
   }
@@ -560,6 +561,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                           ),
                         ),
                       ),
+                      Row(mainAxisAlignment:MainAxisAlignment.end,children: [Text("Optional",style: TextStyle(
+                          fontSize: 13.0,
+                          color: hexToColor("#3A3171"),
+                          fontFamily: 'opensans'),)],),
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       GestureDetector(
                         // When the child is tapped, show a snackbar.
@@ -742,6 +747,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                               ],
                             ),
                           )),
+                      Row(mainAxisAlignment:MainAxisAlignment.end,children: [Text("Optional",style: TextStyle(
+                          fontSize: 13.0,
+                          color: hexToColor("#3A3171"),
+                          fontFamily: 'opensans'),)],),
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       Row(
                         children: <Widget>[
@@ -799,6 +808,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                           )
                         ],
                       ),
+                      Row(mainAxisAlignment:MainAxisAlignment.end,children: [Text("Optional",style: TextStyle(
+                          fontSize: 13.0,
+                          color: hexToColor("#3A3171"),
+                          fontFamily: 'opensans'),)],),
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       GestureDetector(
                         // When the child is tapped, show a snackbar.
