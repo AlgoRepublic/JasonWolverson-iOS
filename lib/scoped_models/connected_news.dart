@@ -1384,6 +1384,10 @@ mixin UserModel on ConnectedNewsModel {
   Future<Map<String, dynamic>> signup(
       String email, String password, date_of_birth, gender) async {
     _isLoading = true;
+    print(email);
+    print(password);
+    print(date_of_birth);
+    print(gender);
     notifyListeners();
     final Map<String, dynamic> authData = {
       'user': {
