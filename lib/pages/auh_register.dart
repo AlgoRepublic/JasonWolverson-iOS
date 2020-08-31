@@ -176,6 +176,9 @@ class _AuthRegisterState extends State<AuthRegister> {
             context, new MaterialPageRoute(builder: (context) => new Auth()));
       };
   }
+  String dob = 'Date of Birth';
+  String religionLabel = 'Religion';
+  String genderLabel = 'Gender';
 
   @override
   Widget build(BuildContext context) {
@@ -499,6 +502,15 @@ class _AuthRegisterState extends State<AuthRegister> {
                       new Padding(padding: const EdgeInsets.only(top: 15.0)),
                       InkWell(
                         onTap: () {
+                          setState(() {
+                            if(date2 == null) {
+                              dob = 'Optional';
+                            }
+                            else
+                              setState(() {
+                                dob = 'Date of Birth';
+                              });
+                          });
                           DatePicker.showDatePicker(context,
                               showTitleActions: true,
                               minTime: DateTime(1935, 1, 1),
@@ -520,7 +532,10 @@ class _AuthRegisterState extends State<AuthRegister> {
                               }, onConfirm: (date) {
                                 print('confirm $date');
                                 _formData['date_of_birth'] = date.toString();
-                                date2 = date;
+                                setState(() {
+                                  date2 = date;
+                                  dob = 'Date of Birth (optional)';
+                                });
                                 print(DateFormat('yyyy-MM-dd').format(date2));
                                 _dobTextCOntroller.text =
                                     DateFormat('yyyy-MM-dd').format(date2);
@@ -532,7 +547,8 @@ class _AuthRegisterState extends State<AuthRegister> {
                         child: IgnorePointer(
                           child: new TextFormField(
                             controller: _dobTextCOntroller,
-                            onTap: () {},
+                            onTap: () {
+                            },
                             decoration: new InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -542,7 +558,7 @@ class _AuthRegisterState extends State<AuthRegister> {
                                   borderSide: BorderSide(
                                       color: hexToColor("#3A3171"), width: 1.0),
                                 ),
-                                labelText: 'Date of Birth',
+                                labelText: dob,
                                 labelStyle: new TextStyle(
                                     color: hexToColor("#3A3171"),
                                     fontFamily: 'opensans'),
@@ -569,7 +585,6 @@ class _AuthRegisterState extends State<AuthRegister> {
                       GestureDetector(
                         // When the child is tapped, show a snackbar.
                           onTap: () {
-                            print("tapped");
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => Dialog(
@@ -598,7 +613,8 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   color: hexToColor("#3A3171"),
                                                   width: 1.0),
                                             ),
-                                            labelText: 'Religion',
+                                            labelText: religionLabel,
+                                            hintText: 'optional',
                                             labelStyle: new TextStyle(
                                                 color: hexToColor("#3A3171"),
                                                 fontFamily: 'opensans'),
