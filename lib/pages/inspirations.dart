@@ -210,7 +210,7 @@ class _InspirationsState extends State<Inspirations> {
                   .network(
               'https://jasonwolverson.algorepublic.com/' +
               model.allInspiratios[Index].file),
-              aspectRatio: 3 / 2,
+              aspectRatio: 4/4,
               autoPlay: false,
               looping: false,
               autoInitialize: true,
