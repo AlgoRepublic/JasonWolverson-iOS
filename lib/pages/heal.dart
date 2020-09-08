@@ -19,7 +19,7 @@ class _HealState extends State<Heal> {
   final myNoOfEmployController = TextEditingController();
   final myChallengesController = TextEditingController();
   final myIndustryController = TextEditingController();
-  String createHeelurl = "http://68.183.187.228/api/heals";
+  String createHeelurl = "https://app.jasonwolverson.net/api/heals";
   bool isLoading=false;
 
   Color hexToColor(String code) {

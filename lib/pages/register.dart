@@ -34,7 +34,7 @@ class _RegisterState extends State<Register> {
     };
 
     final http.Response response = await http.post(
-      'http://68.183.187.228/api/users',
+      'https://app.jasonwolverson.net/api/users',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );

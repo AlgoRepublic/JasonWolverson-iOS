@@ -171,7 +171,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
 
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${widget.model.allEvents.elementAt(position).price}&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).eventId}";
+        "https://app.jasonwolverson.net/api/payfast_url?user_name=$name&email=$email&price=${widget.model.allEvents.elementAt(position).price}&title=${widget.model.allEvents.elementAt(position).title}&event_id=${widget.model.allEvents.elementAt(position).eventId}";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,
@@ -219,7 +219,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     };
     var jsonResponse;
     http.Response response =
-    await http.post("http://68.183.187.228/api/user_event_status",
+    await http.post("https://app.jasonwolverson.net/api/user_event_status",
         headers: {
           'Auth-Token': token,
         },

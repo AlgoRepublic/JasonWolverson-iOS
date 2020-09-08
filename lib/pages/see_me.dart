@@ -289,7 +289,7 @@ class _SeeMeState extends State<SeeMe> {
     };
     var jsonResponse;
     http.Response response = await http.post(
-      "http://68.183.187.228/api/appointments",
+      "https://app.jasonwolverson.net/api/appointments",
       body: json.encode(data),
       headers: {'Auth-Token': token, 'Content-Type': 'application/json'},
     );

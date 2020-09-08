@@ -20,7 +20,7 @@ class ChatModel extends Model {
     };
     var jsonResponse;
     http.Response response = await http.post(
-      "http://68.183.187.228/api/users/update_fcm_token",
+      "https://app.jasonwolverson.net/api/users/update_fcm_token",
       body: data,
     );
     if (response.statusCode == 200) {
@@ -46,7 +46,7 @@ class ChatModel extends Model {
     var jsonResponse;
     print(userId);
     String url =
-        'http://68.183.187.228/api/imessage/message_listing?sender_id=$userId';
+        'https://app.jasonwolverson.net/api/imessage/message_listing?sender_id=$userId';
 
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {

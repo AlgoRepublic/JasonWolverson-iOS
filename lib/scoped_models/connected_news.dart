@@ -98,7 +98,7 @@ mixin JournalModel on ConnectedNewsModel {
 
     try {
       final http.Response response =
-          await http.post('http://68.183.187.228/api/journals',
+          await http.post('https://app.jasonwolverson.net/api/journals',
               headers: {
                 'Content-Type': 'application/json',
                 'Auth-Token': _authenticatedUser.token,
@@ -143,7 +143,7 @@ mixin JournalModel on ConnectedNewsModel {
       'issue_date': issue_date
     };
     return http
-        .put('http://68.183.187.228/api/jounals/${selectedJournal.id}',
+        .put('https://app.jasonwolverson.net/api/jounals/${selectedJournal.id}',
             headers: {
               'Content-Type': 'application/json',
               'Auth-Token': _authenticatedUser.token,
@@ -162,7 +162,7 @@ mixin JournalModel on ConnectedNewsModel {
 //            userEmail: selectedProduct.userEmail,
 //            userId: selectedProduct.userId
       );
-//        print('http://68.183.187.228/api/reflects/${selectedReflect.id}');
+//        print('https://app.jasonwolverson.net/api/reflects/${selectedReflect.id}');
       _journals[selectedJournalIndex] = updatedJournal;
       notifyListeners();
       return true;
@@ -182,7 +182,7 @@ mixin JournalModel on ConnectedNewsModel {
     _selJournalId = null;
     notifyListeners();
     return http.delete(
-      'http://68.183.187.228/api/journals/${deletedJournalId}',
+      'https://app.jasonwolverson.net/api/journals/${deletedJournalId}',
       headers: {
         'Content-Type': 'application/json',
         'Auth-Token': _authenticatedUser.token,
@@ -225,7 +225,7 @@ mixin JournalModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/journals/my_journals',
+      'https://app.jasonwolverson.net/api/journals/my_journals',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
       print('response');
@@ -306,7 +306,7 @@ mixin JournalModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/journals/by_issue_date?issue_date=' +
+      'https://app.jasonwolverson.net/api/journals/by_issue_date?issue_date=' +
           _selectDate,
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
@@ -399,7 +399,7 @@ mixin DailyPlansModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/daily_plans',
+      'https://app.jasonwolverson.net/api/daily_plans',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
       print('response');
@@ -479,7 +479,7 @@ mixin UserTasksModel on ConnectedNewsModel {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('token');
     return http.get(
-      'http://68.183.187.228/api/reports/weekly',
+      'https://app.jasonwolverson.net/api/reports/weekly',
       headers: {'Auth-Token': token, 'Content-Type': 'application/json'},
     ).then((http.Response reponse) {
       print("weekly progress");
@@ -515,7 +515,7 @@ mixin UserTasksModel on ConnectedNewsModel {
     }
 
     return http
-        .put('http://68.183.187.228/api/user_tasks/+${SelectedUserTask.id}',
+        .put('https://app.jasonwolverson.net/api/user_tasks/+${SelectedUserTask.id}',
             headers: {
               'Auth-Token': _authenticatedUser.token,
               'Content-Type': 'application/json'
@@ -573,7 +573,7 @@ mixin UserTasksModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/user_tasks',
+      'https://app.jasonwolverson.net/api/user_tasks',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
       print(response.body);
@@ -670,7 +670,7 @@ mixin InspirationModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/inspirations',
+      'https://app.jasonwolverson.net/api/inspirations',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
 //        print(response.body);
@@ -725,7 +725,7 @@ mixin InspirationModel on ConnectedNewsModel {
     print("in apiiiiiiiiiiiii");
     final Map<String, dynamic> LikeData = {'status': status};
     return http
-        .post('http://68.183.187.228/api/inspirations/$id/likes',
+        .post('https://app.jasonwolverson.net/api/inspirations/$id/likes',
             headers: {
               'Content-Type': 'application/json',
               'Auth-Token': _authenticatedUser.token,
@@ -762,7 +762,7 @@ mixin InspirationModel on ConnectedNewsModel {
 
     try {
       final http.Response response = await http.post(
-          'http://68.183.187.228/api/inspirations/${selectedInspirations.id}/comments',
+          'https://app.jasonwolverson.net/api/inspirations/${selectedInspirations.id}/comments',
           headers: {
             'Content-Type': 'application/json',
             'Auth-Token': _authenticatedUser.token,
@@ -815,7 +815,7 @@ mixin InspirationModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/inspirations/${selectedInspirations.id}/comments',
+      'https://app.jasonwolverson.net/api/inspirations/${selectedInspirations.id}/comments',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
       print(response.body);
@@ -859,7 +859,7 @@ mixin InspirationModel on ConnectedNewsModel {
     Response response;
     try {
       final response = await http.get(
-        'http://68.183.187.228/api/subscription_status',
+        'https://app.jasonwolverson.net/api/subscription_status',
         headers: {'Auth-Token': _authenticatedUser.token},
       );
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -890,7 +890,7 @@ mixin InspirationModel on ConnectedNewsModel {
     Response response;
     try {
       final response = await http.get(
-        'https://jasonwolverson.algorepublic.com/api/subscription_cancel_url',
+        'https://app.jasonwolverson.net/api/subscription_cancel_url',
         headers: {'Auth-Token': _authenticatedUser.token},
       );
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -944,7 +944,7 @@ mixin InspirationModel on ConnectedNewsModel {
     notifyListeners();
 
     return http.delete(
-      'http://68.183.187.228/api/inspirations/${selectedInspirations.id}/likes',
+      'https://app.jasonwolverson.net/api/inspirations/${selectedInspirations.id}/likes',
       headers: {
         'Content-Type': 'application/json',
         'Auth-Token': _authenticatedUser.token,
@@ -966,7 +966,7 @@ mixin InspirationModel on ConnectedNewsModel {
 //            userId: selectedProduct.userId
       );
       print(updatedInspiration.likes);
-////        print('http://68.183.187.228/api/reflects/${selectedReflect.id}');
+////        print('https://app.jasonwolverson.net/api/reflects/${selectedReflect.id}');
 //      print(_likes[selectedInspirationsIndex]);
 //      _inspirations[selectedInspirationsIndex] = updatedInspiration;
       print(updatedInspiration.likes);
@@ -1005,7 +1005,7 @@ mixin NewsModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/posts',
+      'https://app.jasonwolverson.net/api/posts',
       headers: {'Auth-Token': _authenticatedUser.token},
     ).then<Null>((http.Response response) {
       print(response.body);
@@ -1061,7 +1061,7 @@ mixin EventModel on ConnectedNewsModel {
     }
 
     return http.get(
-      'http://68.183.187.228/api/events',
+      'https://app.jasonwolverson.net/api/events',
       headers: {'Auth-Token': _authenticatedUser.token},
     )
 //    return http .get('https://jsonplace
@@ -1161,7 +1161,7 @@ mixin ReflectModel on ConnectedNewsModel {
 
     try {
       final http.Response response =
-          await http.post('http://68.183.187.228/api/reflects',
+          await http.post('https://app.jasonwolverson.net/api/reflects',
               headers: {
                 'Content-Type': 'application/json',
                 'Auth-Token': token,
@@ -1213,7 +1213,7 @@ mixin ReflectModel on ConnectedNewsModel {
 //        'userId': selectedProduct.userId
     };
     return http
-        .put('http://68.183.187.228/api/reflects/${selectedReflect.id}',
+        .put('https://app.jasonwolverson.net/api/reflects/${selectedReflect.id}',
             headers: {
               'Content-Type': 'application/json',
               'Auth-Token': token,
@@ -1232,7 +1232,7 @@ mixin ReflectModel on ConnectedNewsModel {
 //            userEmail: selectedProduct.userEmail,
 //            userId: selectedProduct.userId
       );
-//        print('http://68.183.187.228/api/reflects/${selectedReflect.id}');
+//        print('https://app.jasonwolverson.net/api/reflects/${selectedReflect.id}');
       _reflects[selectedReflectIndex] = updatedReflect;
       notifyListeners();
       return true;
@@ -1254,7 +1254,7 @@ mixin ReflectModel on ConnectedNewsModel {
     _selReflectId = null;
     notifyListeners();
     return http.delete(
-      'http://68.183.187.228/api/reflects/${deletedReflectId}',
+      'https://app.jasonwolverson.net/api/reflects/${deletedReflectId}',
       headers: {
         'Content-Type': 'application/json',
         'Auth-Token': token,
@@ -1278,7 +1278,7 @@ mixin ReflectModel on ConnectedNewsModel {
 
     notifyListeners();
     return http.get(
-      'http://68.183.187.228/api/reflects/',
+      'https://app.jasonwolverson.net/api/reflects/',
       headers: {'Auth-Token': token},
     ).then<Null>((http.Response response) {
       final List<Reflect> fetchedReflectList = [];
@@ -1342,7 +1342,7 @@ mixin UserModel on ConnectedNewsModel {
       'auth_token': true
     };
     final http.Response response = await http.post(
-      'http://68.183.187.228/api/auth/login',
+      'https://app.jasonwolverson.net/api/auth/login',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
@@ -1399,7 +1399,7 @@ mixin UserModel on ConnectedNewsModel {
       }
     };
     final http.Response response = await http.post(
-      'http://68.183.187.228/api/users',
+      'https://app.jasonwolverson.net/api/users',
 //    'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDRNWISSlMAV8cduZYT9sEVKhRx6qdwJcc',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},

@@ -12,73 +12,73 @@ class _CardHolderState extends State<CardHolder> {
       "name": "DAILY PLAN",
       "picture": "images/daily-plan.png",
       'url': '/task_list',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/daily_journal.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/daily_journal.mp4'
     },
     {
       "name": "JOURNAL",
       "picture": "images/journal.png",
       'url': '/journal',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/journal.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/journal.mp4'
     },
     {
       "name": "REFLECT",
       "picture": "images/reflect.png",
       'url': '/reflect',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/reflections.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/reflections.mp4'
     },
     {
       "name": "INSPIRATION",
       "picture": "images/inspiration.png",
       'url': '/inpirations',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/inspirations.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/inspirations.mp4'
     },
     {
       "name": "HAPPENING",
       "picture": "images/happening.png",
       'url': '/news',
-      'video': "https://jasonwolverson.algorepublic.com/videos/Video/what_happening.mp4"
+      'video': "https://app.jasonwolverson.net/videos/Video/what_happening.mp4"
     },
     {
       "name": "ABOUT US",
       "picture": "images/about-us.png",
       'url': '/about',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/about_us.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/about_us.mp4'
     },
     {
       "name": "CHAT",
       "picture": "images/chat.png",
       'url': '/chatRoom',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/chat.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/chat.mp4'
     },
     {
       "name": "SEE ME",
       "picture": "images/see-me.png",
       'url': '/seeMe',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/see_me.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/see_me.mp4'
     },
     {
       "name": "HEAL",
       "picture": "images/heal.png",
       'url': '/heal',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/heal.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/heal.mp4'
     },
     {
       "name": "PRODUCT",
       "picture": "images/product_icon.png",
       'url': '/products',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/products.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/products.mp4'
     },
     {
       "name": "Clearing \n Requests",
       "picture": "images/broom.png",
       'url': '/clearingrequest',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/clearing.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/clearing.mp4'
     },
     {
       "name": "Settings",
       "picture": "images/settings.png",
       'url': '/settings',
-      'video': 'https://jasonwolverson.algorepublic.com/videos/Video/clearing.mp4'
+      'video': 'https://app.jasonwolverson.net/videos/Video/clearing.mp4'
     }
 
   ];

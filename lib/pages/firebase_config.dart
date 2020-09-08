@@ -106,7 +106,7 @@ class FirebaseNotifications {
     };
     var jsonResponse;
     http.Response response = await http.post(
-      "http://68.183.187.228/api/users/update_fcm_token",
+      "https://app.jasonwolverson.net/api/users/update_fcm_token",
       body: data,
     );
     if (response.statusCode == 200) {

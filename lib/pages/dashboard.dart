@@ -55,14 +55,14 @@ class _DashboardState extends State<Dashboard> {
     final String formatted = formatter.format(now);
     date = formatted;
     currentUrl =
-        'https://jasonwolverson.algorepublic.com/payfast/subscription?email=${widget.model.user.email}&date=$date';
+        'https://app.jasonwolverson.net/payfast/subscription?email=${widget.model.user.email}&date=$date';
 //    currentUrl = "https://www.google.com.pk";
     super.initState();
     checkSubscription();
 
 //    _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
 //      if (mounted) {
-//        if(url == "https://jasonwolverson.algorepublic.com/success"){
+//        if(url == "https://app.jasonwolverson.net/success"){
 //          setState(() {
 //            subscribe = true;
 //          });
@@ -166,7 +166,7 @@ class _DashboardState extends State<Dashboard> {
                           _isLoadingPage = false;
                         });
                         if (url ==
-                            "https://jasonwolverson.algorepublic.com/success") {
+                            "https://app.jasonwolverson.net/success") {
                           setState(() {
                             subscribe = true;
                           });
@@ -220,7 +220,7 @@ class _DashboardState extends State<Dashboard> {
         builder: (BuildContext context, Widget child, MainModel model) {
       return WebView(
         initialUrl:
-            'https://jasonwolverson.algorepublic.com/payfast/subscription?email=${model.user.email}&date=$date',
+            'https://app.jasonwolverson.net/payfast/subscription?email=${model.user.email}&date=$date',
         javascriptMode: JavascriptMode.unrestricted,
       );
     });

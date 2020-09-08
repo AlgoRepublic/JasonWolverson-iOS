@@ -99,7 +99,7 @@ class _InspirationsState extends State<Inspirations> {
 //
                         ),
                         Container(
-                            child: Image.network('http://68.183.187.228/' +
+                            child: Image.network('https://app.jasonwolverson.net/' +
                                 model.allInspiratios[Index].file)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,13 +202,13 @@ class _InspirationsState extends State<Inspirations> {
                 ),
 
 //                        Container(
-//                            child: File.network('http://68.183.187.228/'+ model.allInspiratios[Index].file)
+//                            child: File.network('https://app.jasonwolverson.net/'+ model.allInspiratios[Index].file)
 //                        )
               Chewie(
               controller: ChewieController(
               videoPlayerController: new VideoPlayerController
                   .network(
-              'https://jasonwolverson.algorepublic.com/' +
+              'https://app.jasonwolverson.net/' +
               model.allInspiratios[Index].file),
               aspectRatio: 4/4,
               autoPlay: false,
@@ -217,7 +217,7 @@ class _InspirationsState extends State<Inspirations> {
               ),),
 //                        new Chewie(
 //                          _controller = new VideoPlayerController.network(
-//                              'https://jasonwolverson.algorepublic.com/' +
+//                              'https://app.jasonwolverson.net/' +
 //                                  model.allInspiratios[Index].file),
 //                          aspectRatio: 3 / 2,
 //                          autoInitialize: true,

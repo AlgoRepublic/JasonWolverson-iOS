@@ -960,7 +960,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 ////
 ////    }
 ////
-////    var data = await http.get("http://68.183.187.228/api/journals",
+////    var data = await http.get("https://app.jasonwolverson.net/api/journals",
 ////      headers: {'Auth-Token':_authenticatedUser.token},
 ////    );
 ////
@@ -1018,7 +1018,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 //////
 //////    }
 //////
-//////    return http .get('http://68.183.187.228/api/journals',
+//////    return http .get('https://app.jasonwolverson.net/api/journals',
 //////      headers: {'Auth-Token':_authenticatedUser.token},
 //////    )
 //////        .then<Null>((http.Response response) {
@@ -1058,7 +1058,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 //////
 //////
 ////////    final response =
-////////    await http.get('http://68.183.187.228/api/journals',
+////////    await http.get('https://app.jasonwolverson.net/api/journals',
 ////////      headers: {'Auth-Token':_authenticatedUser.token},
 ////////    );
 //////

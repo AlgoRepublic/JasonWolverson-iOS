@@ -73,7 +73,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     print('Page finished loading: $url');
                     currentUrl = url;
                     if (url ==
-                        "https://jasonwolverson.algorepublic.com/success") {
+                        "https://app.jasonwolverson.net/success") {
                       if (widget.eventId != null) {
                         setState(() {
                           isLoading = true;
@@ -88,7 +88,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         buyProduct();
                       }
                     } else if (url ==
-                        "https://jasonwolverson.algorepublic.com/cancel") {
+                        "https://app.jasonwolverson.net/cancel") {
                       showToast("Please try again",
                           gravity: Toast.BOTTOM, duration: 4);
                       Navigator.pop(context);
@@ -146,7 +146,7 @@ class _PaymentPageState extends State<PaymentPage> {
     };
     var jsonResponse;
     http.Response response =
-        await http.post("http://68.183.187.228/api/user_event_status",
+        await http.post("https://app.jasonwolverson.net/api/user_event_status",
             headers: {
               'Auth-Token': token,
             },
@@ -185,7 +185,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Map data = {'product_id': widget.productId.toString(),'product_qty':widget.productQuantity};
     var jsonResponse;
     http.Response response =
-        await http.post("http://68.183.187.228/api/order_product",
+        await http.post("https://app.jasonwolverson.net/api/order_product",
             headers: {
               'Auth-Token': token,
             },

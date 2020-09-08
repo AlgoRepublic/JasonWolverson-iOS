@@ -33,7 +33,7 @@ class _ChatRoomState extends State<ChatRoom> {
   String localFilePath;
   int last_position;
   Stream<int> stream;
-  String baseUrl = "https://jasonwolverson.algorepublic.com";
+  String baseUrl = "https://app.jasonwolverson.net";
 
   PlayerState playerState = PlayerState.stopped;
 
@@ -399,7 +399,7 @@ class _ChatRoomState extends State<ChatRoom> {
     _textFieldController.text = "";
     var jsonResponse;
     http.Response response = await http.post(
-      "http://68.183.187.228/api/imessage/create_message",
+      "https://app.jasonwolverson.net/api/imessage/create_message",
       body: data,
     );
     if (response.statusCode == 200) {

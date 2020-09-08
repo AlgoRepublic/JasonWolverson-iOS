@@ -69,7 +69,7 @@ class _ClearingRequestScreenState extends State<ClearingRequestScreen> {
     Response response;
     Dio dio = new Dio();
     response = await dio.post(
-      "http://68.183.187.228/api/create_request",
+      "https://app.jasonwolverson.net/api/create_request",
       data: formData,
       options: new Options(
         headers: {"Auth-Token": token},

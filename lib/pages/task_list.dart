@@ -795,7 +795,7 @@ class _TaskListState extends State<TaskList>
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('token');
     return http.get(
-      'http://68.183.187.228/api/reports/weekly',
+      'https://app.jasonwolverson.net/api/reports/weekly',
       headers: {'Auth-Token': token, 'Content-Type': 'application/json'},
     ).then((http.Response reponse) {
       print("weekly progress");

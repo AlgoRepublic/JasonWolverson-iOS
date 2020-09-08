@@ -377,7 +377,7 @@ class _ProductsState extends State<Products> {
     String token = sharedPreferences.getString("token");
     print(token);
     var jsonResponse;
-    String Url = "http://68.183.187.228/api/product_listing";
+    String Url = "https://app.jasonwolverson.net/api/product_listing";
 
     http.Response response = await http.get(Url, headers: {
       'Auth-Token': token,
@@ -435,7 +435,7 @@ class _ProductsState extends State<Products> {
     print(token);
     var jsonResponse;
     String url =
-        "http://68.183.187.228/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&product_id=${_productList.elementAt(position).id}&product_qty=$quantity";
+        "https://app.jasonwolverson.net/api/payfast_url?user_name=$name&email=$email&price=${_productList.elementAt(position).price}&title=${_productList.elementAt(position).name}&product_id=${_productList.elementAt(position).id}&product_qty=$quantity";
 
     http.Response response = await http.get(url, headers: {
       'Auth-Token': token,
