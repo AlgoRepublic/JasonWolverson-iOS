@@ -70,8 +70,8 @@ class _MyAppState extends State<MyApp> {
                 builder: (BuildContext context, Widget child, MainModel model) {
                   return model.user == null
                       ? SplashScreen()
-                      : Dashboard(_model);
-                      // : WelcomePage();
+                      // : Dashboard(_model);
+                      : WelcomePage();
                 },
               ),
           '/Auth': (BuildContext context) => Auth(),
