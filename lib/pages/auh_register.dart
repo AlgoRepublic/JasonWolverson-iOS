@@ -133,6 +133,8 @@ class _AuthRegisterState extends State<AuthRegister> {
 
     if (successInformation['success']) {
       Navigator.pushReplacementNamed(context, '/dashboard');
+      // Navigator.pushReplacementNamed(context, '/welcomePage');
+
     } else {
       showDialog(
         context: context,

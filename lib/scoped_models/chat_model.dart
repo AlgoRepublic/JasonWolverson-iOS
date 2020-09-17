@@ -104,4 +104,8 @@ class ChatModel extends Model {
       // showToast(jsonResponse["message"], duration: 4, gravity: Toast.BOTTOM);
     }
   }
+
+  List<MessageModel> get getAllMessagesInChat {
+    return messagesList;
+  }
 }

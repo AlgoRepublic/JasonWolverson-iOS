@@ -41,7 +41,7 @@ class _AuthState extends State<Auth> {
     }
 
     if (successInformation['success']) {
-      Navigator.pushReplacementNamed(context, '/dashbaord');
+      Navigator.pushReplacementNamed(context, '/dashboard');
     } else {
       showDialog(
         context: context,

@@ -3,6 +3,7 @@ import 'package:jasonw/pages/clearing_request.dart';
 import 'package:jasonw/pages/paymentPage.dart';
 import 'package:jasonw/pages/settings.dart';
 import 'package:crypto/crypto.dart';
+import 'package:jasonw/pages/welcome_page.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 import './pages/auth.dart';
@@ -70,10 +71,13 @@ class _MyAppState extends State<MyApp> {
                   return model.user == null
                       ? SplashScreen()
                       : Dashboard(_model);
+                      // : WelcomePage();
                 },
               ),
           '/Auth': (BuildContext context) => Auth(),
+          // '/welcomePage': (BuildContext context) => WelcomePage(),
           '/dashboard': (BuildContext context) => Dashboard(_model),
+          // '/dashboard': (BuildContext context) => WelcomePage(),
           '/news': (BuildContext context) => News(model: _model),
           '/task_list': (BuildContext context) => TaskList(_model),
           '/reflect': (BuildContext context) => Reflect(_model),
