@@ -61,7 +61,7 @@ class _ParentalGateState extends State<ParentalGate> {
                       child: CircleAvatar(
                         backgroundColor: kColorPrimary,
                         radius: 50.0,
-                        backgroundImage: AssetImage("assets/images/avatar_demo.png"),
+                        backgroundImage: AssetImage("images/inspiration.png"),
                       ),
                     ),
                   ),
@@ -137,7 +137,7 @@ class _ParentalGateState extends State<ParentalGate> {
                               context: context,
                               style: kWelcomeAlertStyle,
                               image: Image.asset(
-                                "assets/images/avatar_demo.png",
+                                "images/inspiration.png",
                                 height: 150,
                               ),
                               title: "Error",

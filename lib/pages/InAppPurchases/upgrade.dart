@@ -20,6 +20,7 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
   @override
   void initState() {
     super.initState();
+    print("innupgradinggggg screeeeeen");
     fetchData();
   }
 
@@ -27,7 +28,10 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
     PurchaserInfo purchaserInfo;
     try {
       purchaserInfo = await Purchases.getPurchaserInfo();
+      print("purchaserInfo");
+      print(purchaserInfo);
     } on PlatformException catch (e) {
+      print("fetching dataaaaaaa");
       print(e);
     }
 
@@ -35,6 +39,7 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
     try {
       offerings = await Purchases.getOfferings();
     } on PlatformException catch (e) {
+      print("get offers");
       print(e);
     }
     if (!mounted) return;
@@ -126,7 +131,7 @@ class _UpsellScreenState extends State<UpsellScreen> {
                             child: CircleAvatar(
                               backgroundColor: kColorPrimary,
                               radius: 45.0,
-                              backgroundImage: AssetImage("assets/images/avatar_demo.png"),
+                              backgroundImage: AssetImage("images/inspiration.png"),
                             ),
                           ),
                           Text(
@@ -173,7 +178,7 @@ class _UpsellScreenState extends State<UpsellScreen> {
                                       context: context,
                                       style: kWelcomeAlertStyle,
                                       image: Image.asset(
-                                        "assets/images/avatar_demo.png",
+                                        "images/inspiration.png",
                                         height: 150,
                                       ),
                                       title: "Congratulation",
@@ -212,7 +217,7 @@ class _UpsellScreenState extends State<UpsellScreen> {
                                       context: context,
                                       style: kWelcomeAlertStyle,
                                       image: Image.asset(
-                                        "assets/images/avatar_demo.png",
+                                        "images/inspiration.png",
                                         height: 150,
                                       ),
                                       title: "Error",
@@ -257,7 +262,7 @@ class _UpsellScreenState extends State<UpsellScreen> {
                                     context: context,
                                     style: kWelcomeAlertStyle,
                                     image: Image.asset(
-                                      "assets/images/avatar_demo.png",
+                                      "images/inspiration.png",
                                       height: 150,
                                     ),
                                     title: "Error",
@@ -406,7 +411,7 @@ class _PurchaseButtonState extends State<PurchaseButton> {
                         context: context,
                         style: kWelcomeAlertStyle,
                         image: Image.asset(
-                          "assets/images/avatar_demo.png",
+                          "images/inspiration.png",
                           height: 150,
                         ),
                         title: "Congratulation",
@@ -445,7 +450,7 @@ class _PurchaseButtonState extends State<PurchaseButton> {
                         context: context,
                         style: kWelcomeAlertStyle,
                         image: Image.asset(
-                          "assets/images/avatar_demo.png",
+                          "images/inspiration.png",
                           height: 150,
                         ),
                         title: "Error",
@@ -490,7 +495,7 @@ class _PurchaseButtonState extends State<PurchaseButton> {
                       context: context,
                       style: kWelcomeAlertStyle,
                       image: Image.asset(
-                        "assets/images/avatar_demo.png",
+                        "images/inspiration.png",
                         height: 150,
                       ),
                       title: "Error",

@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
           '/Auth': (BuildContext context) => Auth(),
-          // '/welcomePage': (BuildContext context) => WelcomePage(),
+           '/welcomePage': (BuildContext context) => WelcomePage(),
           '/dashboard': (BuildContext context) => Dashboard(_model),
           // '/dashboard': (BuildContext context) => WelcomePage(),
           '/news': (BuildContext context) => News(model: _model),
