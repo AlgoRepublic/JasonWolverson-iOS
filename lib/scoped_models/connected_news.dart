@@ -1341,13 +1341,15 @@ mixin UserModel on ConnectedNewsModel {
       'password': password,
       'auth_token': true
     };
+    print("inloginAPi");
     final http.Response response = await http.post(
       'https://app.jasonwolverson.net/api/auth/login',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
+    print(response);
     final Map<String, dynamic> responseData = json.decode(response.body);
-
+    print("inloginAPi");
     print(responseData);
     bool hasError = true;
     String message = 'Something went wrong.';

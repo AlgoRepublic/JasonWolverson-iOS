@@ -90,7 +90,8 @@ class _AuthState extends State<Auth> {
     successInformation = await login(_formData['email'], _formData['password']);
 
     if (successInformation['success']) {
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      print("loginsuccess");
+      Navigator.pushReplacementNamed(context, '/welcomePage');
     } else {
       showDialog(
         context: context,
@@ -392,10 +393,6 @@ class _AuthState extends State<Auth> {
                                     textColor: Colors.white,
                                     elevation: 0.0,
                                     height: 52,
-                                    //                                minWidth: double.infinity,
-                                    //                            child: Text(_authMode == AuthMode.Login
-                                    //                                ? 'LOGIN'
-                                    //                                : 'SIGNUP'),
                                     onPressed: () => _submitForm(model.login),
                                     child: new Text(
                                       'LOGIN',
@@ -454,69 +451,6 @@ class _AuthState extends State<Auth> {
           ),
         ],
       ),
-
-//      body: Container(
-//        decoration: BoxDecoration(
-////          image: _buildBackgroundImage(),
-//        ),
-//        padding: EdgeInsets.all(10.0),
-//        child: Center(
-//          child: SingleChildScrollView(
-//            child: Container(
-////              width: targetWidth,
-//              child: Form(
-//                key: _formKey,
-//                child: Column(
-//                  children: <Widget>[
-//                    _buildEmailTextField(),
-//                    SizedBox(
-//                      height: 10.0,
-//                    ),
-//                    _buildPasswordTextField(),
-////                    SizedBox(
-////                      height: 10.0,
-////                    ),
-////                    _authMode == AuthMode.Signup
-////                        ? _buildPasswordConfirmTextField()
-////                        : Container(),
-////                    _buildAcceptSwitch(),
-////                    SizedBox(
-////                      height: 10.0,
-////                    ),
-//////                    FlatButton(
-//////                      child: Text(
-//////                          'Switch to ${_authMode == AuthMode.Login ? 'Signup' : 'Login'}'),
-//////                      onPressed: () {
-//////                        setState(() {
-//////                          _authMode = _authMode == AuthMode.Login
-////////                              ? AuthMode.Signup
-//////                              : AuthMode.Login;
-//////                        });
-//////                      },
-//////                    ),
-//                    SizedBox(
-//                      height: 10.0,
-//                    ),
-//                    ScopedModelDescendant<MainModel>(
-//                      builder: (BuildContext context, Widget child,
-//                          MainModel model) {
-//                        return model.isLoading
-//                            ? CircularProgressIndicator()
-//                            :
-//                        RaisedButton(
-//                          textColor: Colors.white,
-//                          onPressed: () =>
-//                              _submitForm(model.login,),
-//                        );
-//                      },
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            ),
-//          ),
-//        ),
-//      ),
     );
   }
 }

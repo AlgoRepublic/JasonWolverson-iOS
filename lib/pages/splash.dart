@@ -17,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 
-
   final MainModel model = MainModel();
 
   @override
@@ -30,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (model.user == null) {
           Navigator.of(context).pushReplacementNamed('/Auth');
         } else {
-          Navigator.of(context).pushReplacementNamed('/Dashboard');
+          Navigator.of(context).pushReplacementNamed('/welcomePage');
         }
 //
 //      },

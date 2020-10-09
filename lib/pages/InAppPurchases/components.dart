@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AppData {
@@ -42,7 +43,7 @@ var kWelcomeAlertStyle = AlertStyle(
 );
 
 TextStyle kSendButtonTextStyle = TextStyle(
-  color: kColorText,
+  color: Colors.white,
   fontWeight: FontWeight.bold,
   fontSize: 20,
 );

@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 //import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
+import 'package:toast/toast.dart';
 import 'auth.dart';
 import 'package:intl/intl.dart';
 
@@ -132,8 +133,8 @@ class _AuthRegisterState extends State<AuthRegister> {
         _formData['date_of_birth'], _formData['gender']);
 
     if (successInformation['success']) {
-      Navigator.pushReplacementNamed(context, '/dashboard');
-      // Navigator.pushReplacementNamed(context, '/welcomePage');
+//      Navigator.pushReplacementNamed(context, '/dashboard');
+       Navigator.pushReplacementNamed(context, '/welcomePage');
 
     } else {
       showDialog(
@@ -943,18 +944,25 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   ),
                                                 ),
                                                 onTap: () {
-                                                  var tempText =
-                                                      _professionController
-                                                          .text;
-                                                  _professionController.text =
-                                                  '';
-                                                  profession.add(tempText);
-                                                  print(profession.length);
-                                                  print("add");
-                                                  Navigator.of(context,
-                                                      rootNavigator: true)
-                                                      .pop('dialog');
-                                                  setState(() {});
+                                                  print("nothing");
+                                                  print(_professionController.text);
+                                                 if(_professionController.text.isNotEmpty){
+                                                   var tempText =
+                                                       _professionController
+                                                           .text;
+                                                   _professionController.text =
+                                                   '';
+                                                   profession.add(tempText);
+                                                   print(profession.length);
+                                                   print("add");
+                                                   Navigator.of(context,
+                                                       rootNavigator: true)
+                                                       .pop('dialog');
+                                                   setState(() {});
+                                                 }
+                                                 else
+                                                   showToast("Please enter something",
+                                                       gravity: Toast.CENTER);
                                                 },
                                               ),
                                             ),
@@ -1119,16 +1127,21 @@ class _AuthRegisterState extends State<AuthRegister> {
                                                   ),
                                                 ),
                                                 onTap: () {
-                                                  var tempText =
-                                                      _interestController.text;
-                                                  _interestController.text = '';
-                                                  interest.add(tempText);
-                                                  print(interest.length);
-                                                  print("add");
-                                                  Navigator.of(context,
-                                                      rootNavigator: true)
-                                                      .pop('dialog');
-                                                  setState(() {});
+                                                 if(_interestController.text.isNotEmpty){
+                                                   var tempText =
+                                                       _interestController.text;
+                                                   _interestController.text = '';
+                                                   interest.add(tempText);
+                                                   print(interest.length);
+                                                   print("add");
+                                                   Navigator.of(context,
+                                                       rootNavigator: true)
+                                                       .pop('dialog');
+                                                   setState(() {});
+                                                 }
+                                                 else
+                                                   showToast("Please enter something",
+                                                       gravity: Toast.CENTER);
                                                 },
                                               ),
                                             ),
@@ -1274,6 +1287,14 @@ class _AuthRegisterState extends State<AuthRegister> {
           ),
         ],
       ),
+    );
+  }
+  void showToast(String msg, {int duration, int gravity}) {
+    Toast.show(
+      msg,
+      context,
+      duration: duration,
+      gravity: gravity,
     );
   }
 }

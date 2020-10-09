@@ -54,26 +54,14 @@ class _DashboardState extends State<Dashboard> {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
     date = formatted;
-    currentUrl =
-        'https://app.jasonwolverson.net/payfast/subscription?email=${widget.model.user.email}&date=$date';
-//    currentUrl = "https://www.google.com.pk";
     super.initState();
-    checkSubscription();
+    print(".......");
+    print(widget.model);
+    print(".......");
 
-//    _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
-//      if (mounted) {
-//        if(url == "https://app.jasonwolverson.net/success"){
-//          setState(() {
-//            subscribe = true;
-//          });
-//        }
-//
-//        print("Current URL: $url");
-//      }
-//    });
     widget.model.autoAuthenticate();
     print(widget.model.user.email);
-    initPlatformState();
+//    initPlatformState();
     new FirebaseNotifications(widget.model).setUpFirebase();
     final settingsAndroid = AndroidInitializationSettings('app_icon');
     final settingsIOS = IOSInitializationSettings(
@@ -90,30 +78,10 @@ class _DashboardState extends State<Dashboard> {
 //    );
   }
 
-  void checkSubscription() async {
-    setState(() {
-      _isLoading = true;
-    });
-    var result = await widget.model.checkSubscription();
-    print(result);
-    print("in dashboardddddddddddddddddddddddddddddddddd");
-    print(result);
-    print(widget.model.user.token);
-    if (result['success'] == 'true') {
-      setState(() {
-        subscribe = true;
-        _isLoading = false;
-      });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   Future<void> initPlatformState() async {
     await Purchases.setDebugLogsEnabled(true);
-    await Purchases.setup("DExegcfoiAtRKVYrXGWnkbthKdunHWDr");
+    await Purchases.setup("kPeTkeMAZMxlilIiQsMVivTjUsDIWddl");
     await Purchases.addAttributionData(
         {}, PurchasesAttributionNetwork.facebook);
     PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
@@ -148,62 +116,28 @@ class _DashboardState extends State<Dashboard> {
 
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-    return _isLoading
-        ? Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : !subscribe
-            ? Scaffold(
-                body: Stack(
-                  children: [
-                    WebView(
-                      initialUrl: currentUrl,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      onPageFinished: (var url) {
-                        setState(() {
-                          _isLoadingPage = false;
-                        });
-                        if (url ==
-                            "https://app.jasonwolverson.net/success") {
-                          setState(() {
-                            subscribe = true;
-                          });
-                        }
-                      },
-                    ),
-                    _isLoadingPage
-                        ? Container(
-                            alignment: FractionalOffset.center,
-                            child: CircularProgressIndicator(),
-                          )
-                        : Container()
-                  ],
-                ),
-              )
-            : Scaffold(
+    return Scaffold(
 //      backgroundColor: hexToColor('#f4f5f8'),
-                appBar: new AppBar(
-                  backgroundColor: hexToColor("#3A3171"),
-                  centerTitle: true,
-                  elevation: 0.0,
-                  title: new Text(
-                    'Smash Life',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'opensans',
-                        fontSize: 16.0),
-                  ),
-                ),
-                body: Stack(
-                  children: <Widget>[
-                    Container(
-                      padding: new EdgeInsets.all(15),
-                      child: CardHolder(),
-                    )
-                  ],
-                ));
+        appBar: new AppBar(
+          backgroundColor: hexToColor("#3A3171"),
+          centerTitle: true,
+          elevation: 0.0,
+          title: new Text(
+            'Smash Life',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'opensans',
+                fontSize: 16.0),
+          ),
+        ),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              padding: new EdgeInsets.all(15),
+              child: CardHolder(),
+            )
+          ],
+        ));
   }
 
   void showToast(String msg, {int duration, int gravity}) {

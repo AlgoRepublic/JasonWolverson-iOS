@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>net.jasonwolverson</string>
+	<string>net.ar.jasonwolverson</string>
 	<key>PROJECT_ID</key>
 	<string>jason-wolverson</string>
 	<key>STORAGE_BUCKET</key>

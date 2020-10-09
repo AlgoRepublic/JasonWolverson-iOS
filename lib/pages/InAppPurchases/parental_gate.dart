@@ -123,11 +123,11 @@ class _ParentalGateState extends State<ParentalGate> {
                           setState(() {
                             myController.text = '';
                           });
-                          if (answer == solution) {
+                          if (answer != solution) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => UpgradeScreen(),
+                                  builder: (context) => InAppPurchaseScreen(null),
                                   settings: RouteSettings(name: 'Upgrade screen'),
                                 ));
                           } else {

@@ -51,8 +51,6 @@ class ChatModel extends Model {
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
-      print("chat messages");
-      print(jsonResponse);
       List<MessageModel> tempMessagesList = [];
 
       var _messages = jsonResponse["data"] as List;
